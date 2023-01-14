@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/Users/haoye.tian/PycharmProjects/ChatGPT/main.py", line 4, in <module>
+    import ChatGPT as gpt
+  File "/Users/haoye.tian/PycharmProjects/ChatGPT/ChatGPT.py", line 9, in <module>
+    bot = ChatGPT()
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/chatgpt_wrapper/chatgpt.py", line 46, in __init__
+    self.browser = playbrowser.launch_persistent_context(
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/sync_api/_generated.py", line 14329, in launch_persistent_context
+    self._sync(
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/_impl/_sync_base.py", line 104, in _sync
+    return task.result()
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/_impl/_browser_type.py", line 155, in launch_persistent_context
+    from_channel(await self._channel.send("launchPersistentContext", params)),
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/_impl/_connection.py", line 44, in send
+    return await self._connection.wrap_api_call(
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/_impl/_connection.py", line 419, in wrap_api_call
+    return await cb()
+  File "/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/_impl/_connection.py", line 79, in inner_send
+    result = next(iter(done)).result()
+playwright._impl._api_types.Error: Browser.enable): Browser closed.
+==================== Browser output: ====================
+<launching> /Users/haoye.tian/Library/Caches/ms-playwright/firefox-1369/firefox/Nightly.app/Contents/MacOS/firefox -no-remote -headless -profile /tmp/playwright -juggler-pipe about:blank
+<launched> pid=43864
+[pid=43864][err] *** You are running in headless mode.
+[pid=43864][err] A copy of Firefox is already open. Only one copy of Firefox can be open at a time.
+[pid=43864] <process did exit: exitCode=0, signal=null>
+[pid=43864] starting temporary directories cleanup
+=========================== logs ===========================
+<launching> /Users/haoye.tian/Library/Caches/ms-playwright/firefox-1369/firefox/Nightly.app/Contents/MacOS/firefox -no-remote -headless -profile /tmp/playwright -juggler-pipe about:blank
+<launched> pid=43864
+[pid=43864][err] *** You are running in headless mode.
+[pid=43864][err] A copy of Firefox is already open. Only one copy of Firefox can be open at a time.
+[pid=43864] <process did exit: exitCode=0, signal=null>
+[pid=43864] starting temporary directories cleanup
+============================================================
+/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/playwright/driver/playwright.sh: line 6: 44083 Killed: 9               "$PLAYWRIGHT_NODEJS_PATH" "$SCRIPT_PATH/package/lib/cli/cli.js" "$@"
+/Users/haoye.tian/PycharmProjects/ChatGPT/ChatGPT.py:150: RuntimeWarning: Mean of empty slice.
+  print('{}: {}'.format(cnt, buggy_file_name))
+/Users/haoye.tian/opt/anaconda3/envs/ChatGPT/lib/python3.9/site-packages/numpy/core/_methods.py:190: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
