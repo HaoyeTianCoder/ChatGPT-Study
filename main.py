@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     # bug_detection(all_assignments, descriptions)
 
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data/'
+    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
     # program_repair(path)
 
     code_explanation(path)
