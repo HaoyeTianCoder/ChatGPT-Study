@@ -50,10 +50,13 @@ def bug_detection(all_assignments, descriptions):
 
 def program_repair(path):
 
-    gpt.repair(path)
+    # gpt.repair(path)
 
-    # validate(path)
+    validate(path)
 
+def code_explanation(path):
+
+    gpt.explain(path)
 
 def validate(path):
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
@@ -72,8 +75,9 @@ def validate(path):
                 try:
                     corr_code = regularize(f.read())
                 except Exception as e:
-                    print(assign)
-                    raise e
+                    print("{}: need to be checked".format(assign))
+                    continue
+                    # raise e
                 tr = t.tv_code(corr_code)
                 if t.is_pass(tr):
                     # corr_code_map[file_name] = corr_code
@@ -94,6 +98,8 @@ if __name__ == '__main__':
     # bug_detection(all_assignments, descriptions)
 
     path = '/Users/haoye.tian/Documents/University/project/refactory/data/'
-    program_repair(path)
+    # program_repair(path)
+
+    code_explanation(path)
 
 

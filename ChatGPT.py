@@ -165,3 +165,60 @@ def repair(path):
     #     presence_penalty=0.0,
     #     stop=["###"]
     # )
+
+def explain(path):
+    signal.signal(signal.SIGALRM, handler)
+    for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
+        print(q)
+        cnt = 0
+        response_time = []
+        path_question = path + q
+        path_code_explanation = os.path.join(path_question, 'code/explanation')
+        if not os.path.exists(path_code_explanation):
+            os.makedirs(path_code_explanation)
+
+        path_correct_code = os.path.join(path_question, 'code/correct')
+        assignments_correct = os.listdir(path_correct_code)
+        for assign in assignments_correct:
+            cnt += 1
+            correct_file_name = assign
+            explanation_file_name = correct_file_name.replace('correct', 'explanation')
+            if os.path.exists(os.path.join(path_code_explanation, explanation_file_name)):
+                continue
+
+            path_correct_assign = os.path.join(path_correct_code, assign)
+            correct_version_code = open(path_correct_assign).read().strip()
+            # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
+            prompt = "Can you explain the intention of the following code(s)?\n\n " + correct_version_code
+            begin = time.time()
+            # OpenAI API
+            # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
+            # answer = response.choices[0].text.strip().strip(',').strip('.')
+            signal.alarm(60*5)
+            try:
+                # ChatGPT API
+                answer = bot.ask(prompt)
+                # answer = ask(prompt)
+                if 'ChatGPT' and 'unavailable' in answer:
+                    raise Exception(answer)
+                response_time.append(time.time() - begin)
+
+                with open(os.path.join(path_code_explanation, explanation_file_name), 'w+') as file:
+                    file.write(answer)
+            except Exception as e:
+                raise
+                signal.alarm(0)
+                print(e.__str__())
+                if 'ChatGPT' and 'unavailable' in e.__str__():
+                    print('waiting 10 min to request again ...')
+                    time.sleep(60*10)
+                continue
+            signal.alarm(0)
+            end = time.time()
+            cost = end - begin
+            if cost <= 2:
+                time.sleep(2 - cost)
+            print('{}: {}'.format(cnt, correct_file_name))
+        response_time_average = np.array(response_time).mean()
+        print('Response time average:')
+        print('{}: {}'.format(q, response_time_average))
