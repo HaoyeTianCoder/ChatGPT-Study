@@ -183,14 +183,16 @@ def explain(path):
             for assign in assignments:
                 cnt += 1
                 file_name = assign
-                explanation_file_name = file_name.replace(label, 'explanation')
+                if file_name.startswith('.'):
+                    continue
+                explanation_file_name = 'explanation_' + file_name
                 if os.path.exists(os.path.join(path_code_explanation, explanation_file_name)):
                     continue
 
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
                 # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Assuming you don't know the function name of the following code, please explain the purpose of the code.\n\n " + code_content
+                prompt = "Imagine you don't know the name of the functions below. Could you explain the intention of the function(s) within one sentence? Do not include code details in your answer:\n\n " + code_content
                 begin = time.time()
                 # OpenAI API
                 # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
@@ -219,7 +221,7 @@ def explain(path):
                 cost = end - begin
                 if cost <= 2:
                     time.sleep(2 - cost)
-                print('{}: {}'.format(cnt, correct_file_name))
+                print('{}: {}'.format(cnt, file_name))
             response_time_average = np.array(response_time).mean()
             print('Response time average:')
             print('{}: {}'.format(q, response_time_average))
