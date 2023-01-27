@@ -192,7 +192,7 @@ def explain(path):
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
                 # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Imagine you don't know the name of the functions below. Could you explain the intention of the function(s) within one sentence? Do not include code details in your answer:\n\n " + code_content
+                prompt = "Imagine you don't know the name of the function(s) below. Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
                 begin = time.time()
                 # OpenAI API
                 # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)

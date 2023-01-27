@@ -59,15 +59,18 @@ def code_explanation(path):
     gpt.explain(path)
 
 def validate(path):
+    all_result = []
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
         print(q)
         question_path = path + q
         t = Tester(question_path)
         path_fixed_code = os.path.join(question_path, 'code/fixed')
         assignments_fixed = os.listdir(path_fixed_code)
+        cnt, correct, wrong, error = 0, 0, 0, 0
         for assign in assignments_fixed:
             if assign.startswith('.'):
                 continue
+            cnt += 1
             file_name = assign
             path_fixed_assign = os.path.join(path_fixed_code, assign)
             with open(path_fixed_assign, "r") as f:
@@ -75,26 +78,34 @@ def validate(path):
                 try:
                     corr_code = regularize(f.read())
                 except Exception as e:
-                    print("{}: need to be checked".format(assign))
+                    print("{}: error!".format(file_name))
+                    error += 1
                     continue
                     # raise e
                 tr = t.tv_code(corr_code)
                 if t.is_pass(tr):
                     # corr_code_map[file_name] = corr_code
                     print('{}: correct!'.format(file_name))
+                    correct += 1
                 else:
                     print('{}: incorrect!'.format(file_name))
+                    wrong += 1
                     # print(tr)
                     # print(path_fixed_assign)
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
-
+        all_result.append([cnt, correct, wrong, error])
+    print("cnt, correct, wrong, error")
+    print(all_result[0])
+    print(all_result[1])
+    print(all_result[2])
+    print(all_result[3])
+    print(all_result[4])
 
 
 if __name__ == '__main__':
     # test correct programs
 
     all_assignments, descriptions = load_data()
-
     # bug_detection(all_assignments, descriptions)
 
     path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
