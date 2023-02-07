@@ -4,6 +4,7 @@ import openai
 import os
 import time
 import signal
+import json
 
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, recall_score, precision_score
 bot = ChatGPT()
@@ -83,9 +84,11 @@ def ask(prompt):
     return answer
 
 def repair(path):
+    fixed_id = json.load(open("fixed_id.json"))
     signal.signal(signal.SIGALRM, handler)
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
         print(q)
+        ids = fixed_id[q]
         cnt = 0
         response_time = []
         path_question = path + q
@@ -98,8 +101,12 @@ def repair(path):
         for assign in assignments_wrong:
             cnt += 1
             buggy_file_name = assign
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
-            if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            # fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
+            # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            #     continue
+            id = assign.split('_')[2]
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed3')
+            if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
