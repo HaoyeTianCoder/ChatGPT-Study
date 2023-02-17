@@ -112,7 +112,7 @@ def repair(path):
             path_wrong_assign = os.path.join(path_buggy_code, assign)
             buggy_version_code = open(path_wrong_assign).read().strip()
             # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-            prompt = "There are bugs in one or more of the following codes, can you fix them? Reply me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            prompt = "There are one or more bugs in the below code. Can you please fix them? Reply me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
             begin = time.time()
             # OpenAI API
             # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)

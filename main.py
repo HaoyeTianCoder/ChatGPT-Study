@@ -2,7 +2,8 @@ import json
 import os
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, recall_score, precision_score
 from basic_framework.core_testing import Tester
-import ChatGPT as gpt
+import ChatGPT as chatgpt
+import Codex as codex
 from basic_framework.refactoring import Refactoring, Reporter
 from basic_framework.utils import regularize
 from basic_framework.core_testing import Tester
@@ -47,17 +48,21 @@ def load_data():
     return all_assignments, descriptions
 
 def bug_detection(all_assignments, descriptions):
-    gpt.ifbug(all_assignments, descriptions)
+    chatgpt.ifbug(all_assignments, descriptions)
 
-def program_repair(path):
+def program_repair(path, model):
+    if model == 'ChatGPT':
+        chatgpt.repair(path)
+    elif model == 'Codex':
+        codex.repair(path)
 
-    gpt.repair(path)
+    # validate(path)
 
-    validate(path)
+    calculate()
 
 def code_explanation(path):
 
-    gpt.explain(path)
+    chatgpt.explain(path)
 
 def validate(path):
     all_result = []
@@ -110,15 +115,20 @@ def validate(path):
     # print(all_result[3])
     # print(all_result[4])
 
+def calculate():
+    with open('fixed_id.json', 'r+') as f:
+        dict = json.load(f)
+    for k,v in dict.items():
+        print('Question: {}, Fix :{}'.format(k, len(set(v))))
 
 if __name__ == '__main__':
-    # test correct programs
+    model = 'Codex'
 
     all_assignments, descriptions = load_data()
     # bug_detection(all_assignments, descriptions)
 
     path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
-    program_repair(path)
+    program_repair(path, model)
 
     # code_explanation(path)
 
