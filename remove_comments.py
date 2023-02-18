@@ -10,14 +10,18 @@ top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data_nocomme
 
 # for folder
 def trim_dir(path):
+    check = []
     print("dir:" + path)
     for root, dirs, files in os.walk(path):
-        print("***")
+        # print("***")
         print(files)
         for name in files:
-            if name.endswith(".py") and ("correct" or "wrong" in name):
+            # if name.endswith(".py") and ("correct" or "wrong" in name):
+            if name.endswith(".py") and ('fixed_codex' in root.split('/')[-1]):
                 # trim_file(os.path.join(root,name))
-                remove_comments_and_docstrings(root,name)
+                check += remove_comments_and_docstrings(root,name)
+    print('###################')
+    print('lets check: {}'.format(sorted(check)))
 
 # for file
 def trim_file(fname):
@@ -62,6 +66,7 @@ def trim_file(fname):
 
 import io, tokenize, re
 def remove_comments_and_docstrings(root,name):
+    check = []
     path_file = os.path.join(root, name)
     with open(path_file, 'r') as f:
         source = f.read()
@@ -96,14 +101,17 @@ def remove_comments_and_docstrings(root,name):
             out = '\n'.join(l for l in out.splitlines() if l.strip())
 
             # return out
-            path_new_file = path_file.replace(".py", ".pure.py")
+            # path_new_file = path_file.replace(".py", ".pure.py")
+            path_new_file = path_file
             with open(path_new_file, 'w') as f:
                 f.write(out)
         except Exception as e:
-            print("let's check: {}".format(name))
-            return
+            check.append(name)
+            return check
     # with open('test.py', 'r') as f:
     #     print(remove_comments_and_docstrings(f.read()))
+    return check
+
 
 import ast, astunparse
 def remove_by_AST():

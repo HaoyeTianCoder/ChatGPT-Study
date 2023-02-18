@@ -37,8 +37,8 @@ def repair(path):
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
             buggy_version_code = open(path_wrong_assign).read().strip()
-            # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
             prompt = "##### Fix bugs in the below function\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
+            # prompt = "##### There are one or more bugs in the below code. Can you please fix them? Reply me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             begin = time.time()
             # OpenAI API
             response = openai.Completion.create(
@@ -68,6 +68,7 @@ def repair(path):
 def validate(path):
     all_result = []
     fixed_id = {}
+    check = []
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
         print(q)
         fixed_id[q] = []
@@ -86,12 +87,13 @@ def validate(path):
                 # file_name = path_fixed_assign.split("/")[-1]
                 try:
                     corr_code = regularize(f.read())
+                    tr = t.tv_code(corr_code)
                 except Exception as e:
                     print("{}: error!".format(file_name))
                     error += 1
+                    check.append(file_name)
                     continue
                     # raise e
-                tr = t.tv_code(corr_code)
                 if t.is_pass(tr):
                     # corr_code_map[file_name] = corr_code
                     print('{}: correct!'.format(file_name))
@@ -107,7 +109,7 @@ def validate(path):
                     # print(path_fixed_assign)
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         # all_result.append([cnt, correct, wrong, error])
-
+    print('lets check: {}'.format(sorted(check)))
     json.dump(fixed_id, open('fixed_codex_id.json', 'w+'))
     # print("cnt, correct, wrong, error")
     # print(all_result[0])
@@ -121,6 +123,6 @@ def validate(path):
 if __name__ == '__main__':
 
     path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
-    repair(path)
-    # validate(path)
+    # repair(path)
+    validate(path)
 
