@@ -52,24 +52,19 @@ def bug_detection(all_assignments, descriptions):
 
 def program_repair(path, model):
     if model == 'ChatGPT':
-        chatgpt.repair(path)
-        chatgpt.validate(path)
+        # chatgpt.repair(path)
+        # chatgpt.validate(path)
+        chatgpt.calculate()
     elif model == 'Codex':
-        codex.repair(path)
-        codex.validate(path)
+        # codex.repair(path)
+        # codex.validate(path)
+        codex.calculate()
 
-    calculate()
 
 def code_explanation(path):
 
     chatgpt.explain(path)
 
-
-def calculate():
-    with open('fixed_id.json', 'r+') as f:
-        dict = json.load(f)
-    for k,v in dict.items():
-        print('Question: {}, Fix :{}'.format(k, len(set(v))))
 
 if __name__ == '__main__':
     model = 'Codex'

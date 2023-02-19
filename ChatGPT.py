@@ -225,6 +225,28 @@ def validate(path):
     # print(all_result[3])
     # print(all_result[4])
 
+def calculate():
+    all_cnt = 1783
+    fix_cnt = 0
+    with open('fixed_id.json', 'r+') as f:
+        dict = json.load(f)
+    for k, v in dict.items():
+        fix_cnt_ques = len(set(v))
+        fix_cnt += fix_cnt_ques
+        if k == 'question_1':
+            cnt = 575
+        elif k == 'question_2':
+            cnt = 435
+        elif k == 'question_3':
+            cnt = 308
+        elif k == 'question_4':
+            cnt = 357
+        elif k == 'question_5':
+            cnt = 108
+        print('Question: {}, Fix :{}, Fix rate: {}'.format(k, fix_cnt_ques, round(fix_cnt_ques / cnt, 4)))
+    print('################')
+    print('All: fix_cnt: {}, fix_rate: {}'.format(fix_cnt, round(fix_cnt / all_cnt, 4)))
+
 def explain(path):
     signal.signal(signal.SIGALRM, handler)
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
