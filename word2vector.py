@@ -3,6 +3,7 @@ from transformers import AutoTokenizer, BertModel
 import torch
 import numpy
 import json
+import pickle
 
 def obtain_vectors(path):
     all = {'1': {'wrong':[], 'correct':[]},
@@ -23,11 +24,9 @@ def obtain_vectors(path):
                 all[question][label].append([id, code_intention_vector])
                 cnt += 1
                 print('question-{}: {} {}'.format(question, cnt, id))
-                if cnt == 101:
-                    break
 
-    with open('./explanation_vectors.json', 'w+') as f:
-        json.dump(all, f)
+    with open('./explanation_vectors.pickle', 'wb') as f:
+        pickle.dump(all, f)
 
 def word2vector(text):
     tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased")
