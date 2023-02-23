@@ -273,7 +273,7 @@ def explain(path):
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
                 # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Imagine you don't know the name of the function(s) below. Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                prompt = "Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
                 begin = time.time()
                 # OpenAI API
                 # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
@@ -306,3 +306,63 @@ def explain(path):
             response_time_average = np.array(response_time).mean()
             print('Response time average:')
             print('{}: {}'.format(q, response_time_average))
+
+def explain_separated(path):
+    signal.signal(signal.SIGALRM, handler)
+    for f in ['unique_day', 'unique_month', 'contains_unique_day']:
+        print(f)
+        cnt = 0
+        response_time = []
+        path_function = path + f
+        path_code_explanation = os.path.join(path_function, 'explanation')
+        if not os.path.exists(path_code_explanation):
+            os.makedirs(path_code_explanation)
+
+        for label in ['correct', 'wrong']:
+            path_root_code = os.path.join(path_function, label)
+            assignments = os.listdir(path_root_code)
+            for assign in assignments:
+                cnt += 1
+                file_name = assign
+                if file_name.startswith('.'):
+                    continue
+                explanation_file_name = 'explanation_' + file_name
+                if os.path.exists(os.path.join(path_code_explanation, explanation_file_name)):
+                    continue
+
+                path_assign = os.path.join(path_root_code, assign)
+                code_content = open(path_assign).read().strip()
+                # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
+                prompt = "Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                begin = time.time()
+                # OpenAI API
+                # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
+                # answer = response.choices[0].text.strip().strip(',').strip('.')
+                signal.alarm(60*5)
+                try:
+                    # ChatGPT API
+                    answer = bot.ask(prompt)
+                    # answer = ask(prompt)
+                    if 'ChatGPT' and 'unavailable' in answer:
+                        raise Exception(answer)
+                    response_time.append(time.time() - begin)
+
+                    with open(os.path.join(path_code_explanation, explanation_file_name), 'w+') as file:
+                        file.write(answer)
+                except Exception as e:
+                    raise
+                    signal.alarm(0)
+                    print(e.__str__())
+                    if 'ChatGPT' and 'unavailable' in e.__str__():
+                        print('waiting 10 min to request again ...')
+                        time.sleep(60*10)
+                    continue
+                signal.alarm(0)
+                end = time.time()
+                cost = end - begin
+                if cost <= 2:
+                    time.sleep(2 - cost)
+                print('{}: {}'.format(cnt, file_name))
+            response_time_average = np.array(response_time).mean()
+            print('Response time average:')
+            print('{}: {}'.format(f, response_time_average))

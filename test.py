@@ -1,13 +1,34 @@
-import os
-import openai
+import pickle
+from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 
-# Load your API key from an environment variable or secret management service
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "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"
-models = openai.Model.list()
+def calculate_distribution2():
+    with open('./explanation_vectors.pickle', 'rb') as f:
+        explanation_vectors = pickle.load(f)
+    with open('./description_vectors.pickle', 'rb') as f:
+        description_vectors = pickle.load(f)
 
-prompt = "Task: Duplicate elimination. Write a function remove_extras(lst) that takes in a list and returns a new list with all repeated occurrences of any element removed. For example, remove_extras([5, 2, 1, 2, 3]) returns the list [5, 2, 1, 3]."
-response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
-print(response.choices[0].text)
-response = openai.Completion.create(model="text-davinci-003", prompt="is there any fault in this code?", temperature=0, stream=True, max_tokens=1000)
-print(response.choices[0].text)
+    result = []
+    for k,v in explanation_vectors.items():
+        print('question: {}'.format(k))
+        des_vector = description_vectors[int(k)-1]
+
+        correct_vectors = v['correct']
+        print('correct:')
+        for i in range(len(correct_vectors)):
+            sim = cosine_similarity(correct_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
+            result.append([k, 'Correct', correct_vectors[i][0], sim[0][0]])
+
+        # print('correct similarity: {}'.format(np.array(result[k][0]).mean()))
+        wrong_vectors = v['wrong']
+        print('wrong:')
+        for i in range(len(wrong_vectors)):
+            sim = cosine_similarity(wrong_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
+            result.append([k, 'Incorrect', wrong_vectors[i][0], sim[0][0]])
+        # print('wrong similarity: {}'.format(np.array(result[k][1]).mean()))
+
+        re = sorted(result, key=lambda x:x[3], reverse=True)[:10]
+        print(re)
+
+if __name__ == '__main__':
+    calculate_distribution2()
+
