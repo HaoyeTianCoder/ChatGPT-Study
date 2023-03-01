@@ -61,9 +61,9 @@ def bug_detection(all_assignments, descriptions):
 
 def program_repair(path, model):
     if model == 'ChatGPT':
-        # chatgpt.repair(path)
+        chatgpt.repair(path)
         # chatgpt.validate(path)
-        chatgpt.calculate()
+        # chatgpt.calculate(path)
     elif model == 'Codex':
         # codex.repair(path)
         # codex.validate(path)
@@ -289,9 +289,9 @@ if __name__ == '__main__':
     # bug_detection(all_assignments, descriptions)
 
     # RQ-2
-    # program_repair(path, model='Codex')
+    program_repair(path, model='ChatGPT')
 
     #RQ-3
-    code_explanation(path)
+    # code_explanation(path)
 
 

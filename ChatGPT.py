@@ -85,10 +85,23 @@ def ask(prompt):
     return answer
 
 def repair(path):
-    fixed_id = json.load(open("fixed_id.json"))
+    if not 'data_nocomments_fix2' in path:
+        fixed_id = json.load(open("fixed_id.json"))
+    else:
+        fixed_id = json.load(open("fixed_id_fix2.json"))
+
     signal.signal(signal.SIGALRM, handler)
-    for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
+    questions = ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']
+    descriptions = ['This function takes in a value “x” and a sorted sequence “seq”, and returns the position that “x” should go to such that the sequence remains sorted. Otherwise, return the length of the sequence.',
+                    'Given a month and a list of possible birthdays, these functions check if there is only one possible birthday with that month and unique day. Three different functions are implemented: unique_day, unique_month and contains_unique_day.',
+                    'This function takes in a list and returns a new list with all repeated occurrences of any element removed and the order of the original elements kept.',
+                    'Given a list of people, this function sorts the people and returns a list in an order such that the older people are at the front of the list.',
+                    'This function top_k accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.']
+    for i in range(len(questions)):
+        q = questions[i]
+        des = descriptions[i]
         print(q)
+
         ids = fixed_id[q]
         cnt = 0
         response_time = []
@@ -106,14 +119,19 @@ def repair(path):
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed3')
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed2')
             if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
             buggy_version_code = open(path_wrong_assign).read().strip()
             # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-            prompt = "There are one or more bugs in the below code. Can you please fix them? Reply me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            # prompt = "There are one or more bugs in the below function(s). Can you fix the function(s)? Reply to me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            if q == 'question_2':
+                prompt = "There are one or more bugs in the below functions. " + des + " Can you fix these functions? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+                # prompt = "There are one or more bugs in the below functions. Can you fix these functions? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            else:
+                prompt = "There are one or more bugs in the below function. " + des + " Can you fix the function? Reply to me with the fixed function. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
             begin = time.time()
             # OpenAI API
             # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
@@ -136,14 +154,14 @@ def repair(path):
                 #         answer_list.pop()
                 #     else:
                 #         break
-                if answer_list[-1].startswith("```"):
-                    answer_list.pop(-1)
+                # if answer_list[-1].startswith("```"):
+                #     answer_list.pop(-1)
                 pure_code = '\n'.join(answer_list)
 
                 with open(os.path.join(path_fixed_code, fixed_file_name), 'w+') as file:
                     file.write(pure_code)
             except Exception as e:
-                raise
+                # raise
                 signal.alarm(0)
                 print(e.__str__())
                 if 'ChatGPT' and 'unavailable' in e.__str__():
@@ -177,6 +195,7 @@ def repair(path):
 def validate(path):
     all_result = []
     fixed_id = {}
+    check = []
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
         print(q)
         fixed_id[q] = []
@@ -197,6 +216,7 @@ def validate(path):
                     corr_code = regularize(f.read())
                 except Exception as e:
                     print("{}: error!".format(file_name))
+                    check.append(file_name)
                     error += 1
                     continue
                     # raise e
@@ -217,7 +237,12 @@ def validate(path):
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         # all_result.append([cnt, correct, wrong, error])
 
-    json.dump(fixed_id, open('fixed_id.json', 'w+'))
+    print('lets check: {}'.format(sorted(check)))
+    if not 'data_nocomments_fix2' in path:
+        json.dump(fixed_id, open('fixed_id.json', 'w+'))
+    else:
+        json.dump(fixed_id, open('fixed_id_fix2.json', 'w+'))
+
     # print("cnt, correct, wrong, error")
     # print(all_result[0])
     # print(all_result[1])
@@ -225,11 +250,15 @@ def validate(path):
     # print(all_result[3])
     # print(all_result[4])
 
-def calculate():
+def calculate(path):
     all_cnt = 1783
     fix_cnt = 0
-    with open('fixed_id.json', 'r+') as f:
-        dict = json.load(f)
+    if not 'data_nocomments_fix2' in path:
+        with open('fixed_id.json', 'r+') as f:
+            dict = json.load(f)
+    else:
+        with open('fixed_id_fix2.json', 'r+') as f:
+            dict = json.load(f)
     for k, v in dict.items():
         fix_cnt_ques = len(set(v))
         fix_cnt += fix_cnt_ques
