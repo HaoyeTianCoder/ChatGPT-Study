@@ -18,14 +18,14 @@ def obtain_vectors(path):
                 label = file.split('_')[1]
                 question = file.split('_')[2]
                 id = file.split('_')[3]
-                code_intention = open(os.path.join(root, file), 'r+').read()
+                code_intention = open(os.path.join(root, file), 'r+').read().strip()
                 code_intention_vector = word2vector(code_intention)
 
                 all[question][label].append([id, code_intention_vector])
                 cnt += 1
                 print('question-{}: {} {}'.format(question, cnt, id))
 
-    with open('./explanation_vectors.pickle', 'wb') as f:
+    with open('./explanation_vectors_API.pickle', 'wb') as f:
         pickle.dump(all, f)
 
 def questions2vector():
@@ -33,7 +33,7 @@ def questions2vector():
     question2 = 'Given a month and a list of possible birthdays, the functions check if there is only one possible birthday with that month and unique day.'
     question3 = 'This function takes in a list and returns a new list with all repeated occurrences of any element removed and the order of the original elements kept.'
     question4 = 'Given a list of people, this function sorts the people and returns a list in an order such that the older people are at the front of the list.'
-    question5 = 'Write a function top_k that accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.'
+    question5 = 'This function top_k accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.'
 
     unique_day = 'This function checks whether a given day appears exactly once in the list of possible birthdays.'
     unique_month = 'This function checks whether a given month appears exactly once in the list of possible birthdays.'
@@ -96,7 +96,7 @@ def word2vector(text):
     return mean_pooled.detach().numpy().flatten()
 
 if __name__ == '__main__':
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
-    # obtain_vectors(path)
+    path = '/Users/haoye.tian/Documents/University/project/refactory/data/'
+    obtain_vectors(path)
     # questions2vector()
     # obtain_vectors_separated('./separation')

@@ -6,7 +6,7 @@ import io
 import sys, token, tokenize
 
 # root path
-top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data_nocomments"
+top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data"
 
 # for folder
 def trim_dir(path):
@@ -16,8 +16,8 @@ def trim_dir(path):
         # print("***")
         print(files)
         for name in files:
-            # if name.endswith(".py") and ("correct" or "wrong" in name):
-            if name.endswith(".py") and ('fixed_codex' in root.split('/')[-1]):
+            if name.endswith(".py") and ("correct" or "wrong" in name):
+            # if name.endswith(".py") and ('fixed' in root.split('/')[-1]):
                 # trim_file(os.path.join(root,name))
                 check += remove_comments_and_docstrings(root,name)
     print('###################')

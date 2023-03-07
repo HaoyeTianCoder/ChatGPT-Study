@@ -51,6 +51,23 @@ def iterate(path_question2):
                 with open(os.path.join(new_path, file), "w") as function_file:
                     function_file.write(function_code)
 
+def count(path_question2):
+    cnt = 0
+    path_fixed = os.path.join(path_question2, 'fixed')
+    for root, dirs, files in os.walk(path_fixed):
+        for file in files:
+            path_code = os.path.join(root, file)
+            for function_name in ['unique_day', 'unique_month', 'contains_unique_day']:
+                try:
+                    function_code = extract(function_name, path_code)
+                except Exception as e:
+                    print(file)
+                    continue
+                cnt += 1
+    print(cnt)
+
 if __name__ == '__main__':
-    path_question2 = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/question_2/code'
-    iterate(path_question2)
+    path_question2 = '/Users/haoye.tian/Documents/University/project/refactory/data/question_2/code/'
+    # iterate(path_question2)
+
+    count(path_question2)

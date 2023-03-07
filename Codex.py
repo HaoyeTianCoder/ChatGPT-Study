@@ -4,16 +4,32 @@ import openai
 import time
 import signal
 import json
-from main import *
+from basic_framework.utils import regularize
+from basic_framework.core_testing import Tester
 
 openai.api_key = "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"
 
 
 def repair(path):
-    fixed_id = json.load(open("fixed_codex_id.json"))
+    if not 'data_nocomments_des' in path:
+        fixed_id = json.load(open("fixed_codex_id.json"))
+    else:
+        fixed_id = json.load(open("fixed_codex_id_des.json"))
+    # keep same with ChatGPT
+    descriptions = [
+        'This function takes in a value “x” and a sorted sequence “seq”, and returns the position that “x” should go to such that the sequence remains sorted. Otherwise, return the length of the sequence.',
+        'Given a month and a list of possible birthdays, these functions check if there is only one possible birthday with that month and unique day. Three different functions are implemented: unique_day, unique_month and contains_unique_day.',
+        'This function takes in a list and returns a new list with all repeated occurrences of any element removed and the order of the original elements kept.',
+        'Given a list of people, this function sorts the people and returns a list in an order such that the older people are at the front of the list.',
+        'This function top_k accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.']
+
     # signal.signal(signal.SIGALRM, handler)
-    for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
+    questions = ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']
+    for i in range(len(questions)):
+        q = questions[i]
+        des = descriptions[i]
         print(q)
+
         ids = fixed_id[q]
         cnt = 0
         response_time = []
@@ -27,18 +43,25 @@ def repair(path):
         for assign in assignments_wrong:
             cnt += 1
             buggy_file_name = assign
+            if buggy_file_name.startswith('.'):
+                continue
             # fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed3')
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
             if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
             buggy_version_code = open(path_wrong_assign).read().strip()
-            prompt = "##### Fix bugs in the below function\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             # prompt = "##### There are one or more bugs in the below code. Can you please fix them? Reply me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
+            if q == 'question_2':
+                prompt = "##### Fix bugs in the below functions\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
+                # prompt = "##### Fix bugs in the below functions\n" +des+ "\n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
+            else:
+                prompt = "##### Fix bugs in the below function\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
+                # prompt = "##### Fix bugs in the below function\n" +des+ "\n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             begin = time.time()
             # OpenAI API
             response = openai.Completion.create(
@@ -53,8 +76,14 @@ def repair(path):
             )
 
             answer = response.choices[0].text.strip().strip(',').strip('.')
+            # remove natural language
+            answer_list = answer.strip().split('\n')
+            while not answer_list[0].startswith("def "):
+                answer_list.pop(0)
+            pure_code = '\n'.join(answer_list)
+
             with open(os.path.join(path_fixed_code, fixed_file_name), 'w+') as file:
-                file.write(answer)
+                file.write(pure_code)
             end = time.time()
             cost = end - begin
             if cost <= 5:
@@ -83,6 +112,10 @@ def validate(path):
             cnt += 1
             file_name = assign
             # print(file_name)
+            # if not file_name.startswith('fixed_'):# TOP-1
+            #     continue
+            # if not (file_name.startswith('fixed_') or file_name.startswith('fixed2_')):# TOP-2
+            #     continue
             path_fixed_assign = os.path.join(path_fixed_code, assign)
             with open(path_fixed_assign, "r") as f:
                 # file_name = path_fixed_assign.split("/")[-1]
@@ -111,7 +144,10 @@ def validate(path):
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         # all_result.append([cnt, correct, wrong, error])
     print('lets check: {}'.format(sorted(check)))
-    json.dump(fixed_id, open('fixed_codex_id.json', 'w+'))
+    if not 'data_nocomments_des' in path:
+        json.dump(fixed_id, open('fixed_codex_id.json', 'w+'))
+    else:
+        json.dump(fixed_id, open('fixed_codex_id_des.json', 'w+'))
     # print("cnt, correct, wrong, error")
     # print(all_result[0])
     # print(all_result[1])
@@ -122,8 +158,12 @@ def validate(path):
 def calculate():
     all_cnt = 1783
     fix_cnt = 0
-    with open('fixed_codex_id.json', 'r+') as f:
-        dict = json.load(f)
+    if not 'data_nocomments_des' in path:
+        with open('fixed_codex_id.json', 'r+') as f:
+            dict = json.load(f)
+    else:
+        with open('fixed_codex_id_des.json', 'r+') as f:
+            dict = json.load(f)
     for k,v in dict.items():
         fix_cnt_ques = len(set(v))
         fix_cnt += fix_cnt_ques
@@ -144,8 +184,8 @@ def calculate():
 
 if __name__ == '__main__':
 
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
-    # repair(path)
+    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments_des/'
+    repair(path)
     # validate(path)
-    calculate()
+    # calculate()
 

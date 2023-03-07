@@ -6,14 +6,15 @@ import time
 import signal
 import json
 from main import *
+bot = ChatGPT()
 
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, recall_score, precision_score
-bot = ChatGPT()
 
 # Load your API key from an environment variable or secret management service
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = "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"
 # models = openai.Model.list()
+
 
 def handler(signum, frame):
     raise Exception("time out")
@@ -81,22 +82,25 @@ def reque_chatgpt(description, ids, assign_stus, answers_gpt, i):
         return reque_chatgpt(description, ids, assign_stus, answers_gpt, i)
 
 def ask(prompt):
+    # bot = ChatGPT()
     answer = bot.ask(prompt)
     return answer
 
 def repair(path):
-    if not 'data_nocomments_fix2' in path:
+    if not 'data_nocomments_des' in path:
         fixed_id = json.load(open("fixed_id.json"))
     else:
-        fixed_id = json.load(open("fixed_id_fix2.json"))
+        fixed_id = json.load(open("fixed_id_des.json"))
+    # keep same with Codex
+    descriptions = [
+        'This function takes in a value “x” and a sorted sequence “seq”, and returns the position that “x” should go to such that the sequence remains sorted. Otherwise, return the length of the sequence.',
+        'Given a month and a list of possible birthdays, these functions check if there is only one possible birthday with that month and unique day. Three different functions are implemented: unique_day, unique_month and contains_unique_day.',
+        'This function takes in a list and returns a new list with all repeated occurrences of any element removed and the order of the original elements kept.',
+        'Given a list of people, this function sorts the people and returns a list in an order such that the older people are at the front of the list.',
+        'This function top_k accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.']
 
     signal.signal(signal.SIGALRM, handler)
     questions = ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']
-    descriptions = ['This function takes in a value “x” and a sorted sequence “seq”, and returns the position that “x” should go to such that the sequence remains sorted. Otherwise, return the length of the sequence.',
-                    'Given a month and a list of possible birthdays, these functions check if there is only one possible birthday with that month and unique day. Three different functions are implemented: unique_day, unique_month and contains_unique_day.',
-                    'This function takes in a list and returns a new list with all repeated occurrences of any element removed and the order of the original elements kept.',
-                    'Given a list of people, this function sorts the people and returns a list in an order such that the older people are at the front of the list.',
-                    'This function top_k accepts a list of integers as the input and returns the greatest k number of values as a list, with its elements sorted in descending order.']
     for i in range(len(questions)):
         q = questions[i]
         des = descriptions[i]
@@ -115,33 +119,44 @@ def repair(path):
         for assign in assignments_wrong:
             cnt += 1
             buggy_file_name = assign
+            if buggy_file_name.startswith('.'):
+                continue
             # fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed2')
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed5')
             if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
             buggy_version_code = open(path_wrong_assign).read().strip()
-            # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-            # prompt = "There are one or more bugs in the below function(s). Can you fix the function(s)? Reply to me only with the fixed code. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            # if q == 'question_2':
+            #     # prompt = "There are one or more bugs in the below function(s). " + des + " Can you fix the function(s)? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            #     prompt = "There are one or more bugs in the below function(s). Can you fix the function(s)? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            # else:
+            #     # prompt = "There are one or more bugs in the below function. " + des + " Can you fix the function? Reply to me with the fixed function. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+            #     prompt = "There are one or more bugs in the below function. Can you fix the function? Reply to me with the fixed function. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+
             if q == 'question_2':
-                prompt = "There are one or more bugs in the below functions. " + des + " Can you fix these functions? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
-                # prompt = "There are one or more bugs in the below functions. Can you fix these functions? Reply to me with the three fixed functions. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+                prompt = "##### Fix bugs in the below functions\n" +des+ "\n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             else:
-                prompt = "There are one or more bugs in the below function. " + des + " Can you fix the function? Reply to me with the fixed function. Do not include any natural language words, notes or explanations in your answer.\n\n " + buggy_version_code
+                prompt = "##### Fix bugs in the below function\n" +des+ "\n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             begin = time.time()
-            # OpenAI API
-            # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
-            # answer = response.choices[0].text.strip().strip(',').strip('.')
             signal.alarm(60*5)
             try:
-                # ChatGPT API
+                # ChatGPT window
                 answer = bot.ask(prompt)
-                # answer = ask(prompt)
-                if 'ChatGPT' and 'unavailable' in answer:
+                # # ChatGPT API
+                # completion = openai.ChatCompletion.create(
+                #     model="gpt-3.5-turbo",
+                #     messages=[
+                #         {"role": "user", "content": prompt}]
+                # )
+                # answer = completion.choices[0].message.content
+                if answer == '':
+                    raise Exception('null answer')
+                elif 'ChatGPT' and 'unavailable' in answer:
                     raise Exception(answer)
                 response_time.append(time.time() - begin)
 
@@ -149,13 +164,6 @@ def repair(path):
                 answer_list = answer.strip().split('\n')
                 while not answer_list[0].startswith("def "):
                     answer_list.pop(0)
-                # for i in range(len(answer_list)):
-                #     if not answer_list[i].startswith('def '):
-                #         answer_list.pop()
-                #     else:
-                #         break
-                # if answer_list[-1].startswith("```"):
-                #     answer_list.pop(-1)
                 pure_code = '\n'.join(answer_list)
 
                 with open(os.path.join(path_fixed_code, fixed_file_name), 'w+') as file:
@@ -171,8 +179,8 @@ def repair(path):
             signal.alarm(0)
             end = time.time()
             cost = end - begin
-            if cost <= 2:
-                time.sleep(2 - cost)
+            # if cost <= 2:
+            #     time.sleep(2 - cost)
             print('{}: {}'.format(cnt, buggy_file_name))
         response_time_average = np.array(response_time).mean()
         print('Response time average:')
@@ -238,10 +246,10 @@ def validate(path):
         # all_result.append([cnt, correct, wrong, error])
 
     print('lets check: {}'.format(sorted(check)))
-    if not 'data_nocomments_fix2' in path:
+    if not 'data_nocomments_des' in path:
         json.dump(fixed_id, open('fixed_id.json', 'w+'))
     else:
-        json.dump(fixed_id, open('fixed_id_fix2.json', 'w+'))
+        json.dump(fixed_id, open('fixed_id_des.json', 'w+'))
 
     # print("cnt, correct, wrong, error")
     # print(all_result[0])
@@ -253,11 +261,11 @@ def validate(path):
 def calculate(path):
     all_cnt = 1783
     fix_cnt = 0
-    if not 'data_nocomments_fix2' in path:
+    if not 'data_nocomments_des' in path:
         with open('fixed_id.json', 'r+') as f:
             dict = json.load(f)
     else:
-        with open('fixed_id_fix2.json', 'r+') as f:
+        with open('fixed_id_des.json', 'r+') as f:
             dict = json.load(f)
     for k, v in dict.items():
         fix_cnt_ques = len(set(v))
@@ -301,17 +309,20 @@ def explain(path):
 
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
-                # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                prompt = "Can you explain the intention of the below function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                # prompt = "Can you explain the intention of the below function(s) within one sentence? \n\n " + code_content
                 begin = time.time()
-                # OpenAI API
-                # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)
-                # answer = response.choices[0].text.strip().strip(',').strip('.')
                 signal.alarm(60*5)
                 try:
+                    # ChatGPT window
+                    # answer = bot.ask(prompt)
                     # ChatGPT API
-                    answer = bot.ask(prompt)
-                    # answer = ask(prompt)
+                    completion = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {"role": "user", "content": prompt}]
+                    )
+                    answer = completion.choices[0].message.content
                     if 'ChatGPT' and 'unavailable' in answer:
                         raise Exception(answer)
                     response_time.append(time.time() - begin)
@@ -329,8 +340,8 @@ def explain(path):
                 signal.alarm(0)
                 end = time.time()
                 cost = end - begin
-                if cost <= 2:
-                    time.sleep(2 - cost)
+                # if cost <= 2:
+                #     time.sleep(2 - cost)
                 print('{}: {}'.format(cnt, file_name))
             response_time_average = np.array(response_time).mean()
             print('Response time average:')

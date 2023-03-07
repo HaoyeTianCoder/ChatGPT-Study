@@ -61,9 +61,9 @@ def bug_detection(all_assignments, descriptions):
 
 def program_repair(path, model):
     if model == 'ChatGPT':
-        chatgpt.repair(path)
-        # chatgpt.validate(path)
-        # chatgpt.calculate(path)
+        # chatgpt.repair(path)
+        chatgpt.validate(path)
+        chatgpt.calculate(path)
     elif model == 'Codex':
         # codex.repair(path)
         # codex.validate(path)
@@ -175,7 +175,7 @@ def calculate_distribution3():
 
 def boxplot_distribution(distribution, y_title, figureName):
     dfl = pd.DataFrame(distribution)
-    dfl.columns = ['Question', 'Group', y_title]
+    dfl.columns = ['Task', 'Group', y_title]
     # put H on left side in plot
     if dfl.iloc[0]['Group'] != 'Correct':
         b, c = dfl.iloc[0].copy(), dfl[dfl['Group']=='Correct'].iloc[0].copy()
@@ -184,12 +184,12 @@ def boxplot_distribution(distribution, y_title, figureName):
     fig = plt.figure(figsize=(15, 8))
     plt.xticks(fontsize=28, )
     plt.yticks(fontsize=28, )
-    bp = sns.boxplot(x='Question', y=y_title, data=dfl, showfliers=False, palette=colors, hue='Group', width=0.7, notch=False)
+    bp = sns.boxplot(x='Task', y=y_title, data=dfl, showfliers=False, palette=colors, hue='Group', width=0.7, notch=False)
     # bp.set_xticklabels(bp.get_xticklabels(), rotation=320)
     bp.set_xticklabels(bp.get_xticklabels())
     # bp.set_xticklabels(bp.get_xticklabels(), fontsize=28)
     # bp.set_yticklabels(bp.get_yticklabels(), fontsize=28)
-    plt.xlabel('Question', size=32)
+    plt.xlabel('Task', size=32)
     plt.ylabel(y_title, size=30)
     plt.legend(fontsize=28, loc=1)
     # plt.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", borderaxespad=0, ncol=3, fontsize=30, )
@@ -231,10 +231,10 @@ def boxplot_distribution(distribution, y_title, figureName):
         print('Support Null Hypothesis!')
 
     # enumerate every questions
-    question_list = sorted(set(dfl['Question'].tolist()))
+    question_list = sorted(set(dfl['Task'].tolist()))
     for q in question_list:
         print(q, end=': ')
-        dfl_ques = dfl[dfl.iloc[:]['Question'] == q]
+        dfl_ques = dfl[dfl.iloc[:]['Task'] == q]
         length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
         length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
         try:
