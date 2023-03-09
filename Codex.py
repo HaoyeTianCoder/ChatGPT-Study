@@ -49,7 +49,7 @@ def repair(path):
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed')
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed5')
             if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
@@ -63,27 +63,37 @@ def repair(path):
                 prompt = "##### Fix bugs in the below function\n \n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
                 # prompt = "##### Fix bugs in the below function\n" +des+ "\n### Buggy Python\n" + buggy_version_code + "\n### Fixed Python"
             begin = time.time()
-            # OpenAI API
-            response = openai.Completion.create(
-                model="code-davinci-002",
-                prompt=prompt,
-                # temperature=0,
-                max_tokens=1024,
-                # top_p=1.0,
-                # frequency_penalty=0.0,
-                # presence_penalty=0.0,
-                stop=["###"]
-            )
 
-            answer = response.choices[0].text.strip().strip(',').strip('.')
-            # remove natural language
-            answer_list = answer.strip().split('\n')
-            while not answer_list[0].startswith("def "):
-                answer_list.pop(0)
-            pure_code = '\n'.join(answer_list)
+            try:
 
-            with open(os.path.join(path_fixed_code, fixed_file_name), 'w+') as file:
-                file.write(pure_code)
+                # OpenAI API
+                response = openai.Completion.create(
+                    model="code-davinci-002",
+                    prompt=prompt,
+                    # temperature=0,
+                    max_tokens=1024,
+                    # top_p=1.0,
+                    # frequency_penalty=0.0,
+                    # presence_penalty=0.0,
+                    stop=["###"]
+                )
+
+                answer = response.choices[0].text.strip().strip(',').strip('.')
+                # remove natural language
+                answer_list = answer.strip().split('\n')
+                while not answer_list[0].startswith("def "):
+                    answer_list.pop(0)
+                pure_code = '\n'.join(answer_list)
+
+                with open(os.path.join(path_fixed_code, fixed_file_name), 'w+') as file:
+                    file.write(pure_code)
+            except Exception as e:
+                # raise
+                print(e.__str__())
+                if 'unavailable' in e.__str__():
+                    print('waiting 10 min to request again ...')
+                    time.sleep(60 * 10)
+                continue
             end = time.time()
             cost = end - begin
             if cost <= 5:
@@ -114,7 +124,7 @@ def validate(path):
             # print(file_name)
             # if not file_name.startswith('fixed_'):# TOP-1
             #     continue
-            # if not (file_name.startswith('fixed_') or file_name.startswith('fixed2_')):# TOP-2
+            # if not (file_name.startswith('fixed_') or file_name.startswith('fixed2_') or file_name.startswith('fixed3_') or file_name.startswith('fixed4_')):# TOP-N
             #     continue
             path_fixed_assign = os.path.join(path_fixed_code, assign)
             with open(path_fixed_assign, "r") as f:
@@ -185,7 +195,7 @@ def calculate():
 if __name__ == '__main__':
 
     path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments_des/'
-    repair(path)
-    # validate(path)
-    # calculate()
+    # repair(path)
+    validate(path)
+    calculate()
 
