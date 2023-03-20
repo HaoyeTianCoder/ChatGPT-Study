@@ -50,7 +50,8 @@ def repair(path):
             #     continue
             id = assign.split('_')[2]
             fixed_file_name = buggy_file_name.replace('wrong', 'fixed5')
-            if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            # if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
@@ -194,8 +195,8 @@ def calculate():
 
 if __name__ == '__main__':
 
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments_des/'
-    # repair(path)
-    validate(path)
-    calculate()
+    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
+    repair(path)
+    # validate(path)
+    # calculate()
 

@@ -125,8 +125,9 @@ def repair(path):
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed5')
-            if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed2')
+            # if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
+            if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
 
             path_wrong_assign = os.path.join(path_buggy_code, assign)
@@ -373,7 +374,7 @@ def explain_separated(path):
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
                 # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Can you explain the intention of the function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                prompt = "Can you explain the intention of the below function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
                 begin = time.time()
                 # OpenAI API
                 # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)

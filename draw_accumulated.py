@@ -19,9 +19,9 @@ def draw():
 
     # Plot the lines
     plt.plot(x, ChatGPT, label='ChatGPT')
-    plt.plot(x, ChatGPT_des, label='ChatGPT_des')
+    plt.plot(x, ChatGPT_des, label='ChatGPT_D')
     plt.plot(x, Codex, label='Codex')
-    plt.plot(x, Codex_des, label='Codex_des')
+    plt.plot(x, Codex_des, label='Codex_D')
 
     # Set the x and y labels and title
     plt.xticks(np.arange(min(x), max(x) + 1, 1), fontsize=28, )
