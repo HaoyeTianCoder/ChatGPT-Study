@@ -17,6 +17,7 @@ import seaborn as sns
 from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import statsmodels.api as sm
 
 def load_data():
     data_path = '/Users/haoye.tian/Documents/University/project/refactory/data'
@@ -62,8 +63,9 @@ def bug_detection(all_assignments, descriptions):
 def program_repair(path, model):
     if model == 'ChatGPT':
         # chatgpt.repair(path)
-        chatgpt.validate(path)
-        chatgpt.calculate(path)
+        # chatgpt.validate(path)
+        chatgpt.validate_case(path)
+        # chatgpt.calculate(path)
     elif model == 'Codex':
         # codex.repair(path)
         # codex.validate(path)
@@ -78,11 +80,11 @@ def code_explanation(path):
     # w2v.obtain_vectors(path)
     # run word2vector.py
 
-    # calculate_distribution()
-    # calculate_distribution2()
-    calculate_distribution3()
+    # calculate_distribution1()
+    calculate_distribution2()
+    # calculate_distribution3()
 
-def calculate_distribution():
+def calculate_distribution2():
     with open('./explanation_vectors.pickle', 'rb') as f:
         explanation_vectors = pickle.load(f)
     result = []
@@ -107,10 +109,10 @@ def calculate_distribution():
         # print('wrong similarity: {}'.format(np.array(result[k][1]).mean()))
 
     # result = [[subject, group, value]]
-    boxplot_distribution(result, 'Similarity of code intention',
-                         'code_intention_similarity.jpg')
+    boxplot_distribution(result, 'Similarity between the\n intents of the codes',
+                         'code_intention_similarity2.jpg')
 
-def calculate_distribution2():
+def calculate_distribution1():
     with open('./explanation_vectors.pickle', 'rb') as f:
         explanation_vectors = pickle.load(f)
     with open('./description_vectors.pickle', 'rb') as f:
@@ -136,8 +138,8 @@ def calculate_distribution2():
         # print('wrong similarity: {}'.format(np.array(result[k][1]).mean()))
 
     # result = [[subject, group, value]]
-    boxplot_distribution(result, 'Similarity of code intention\n and question description',
-                         'code_intention_similarity2.jpg')
+    boxplot_distribution(result, 'Similarity between code inten-\ntion and problem description',
+                         'code_intention_similarity1.jpg')
 
 def calculate_distribution3():
     with open('./separation_vectors.pickle', 'rb') as f:
@@ -170,12 +172,12 @@ def calculate_distribution3():
         # print('wrong similarity: {}'.format(np.array(result[k][1]).mean()))
 
     # result = [[subject, group, value]]
-    boxplot_distribution(result, 'Similarity of code intention\n and question description',
+    boxplot_distribution(result, 'Similarity between code inten-\ntion and problem description',
                          'code_intention_similarity3.jpg')
 
 def boxplot_distribution(distribution, y_title, figureName):
     dfl = pd.DataFrame(distribution)
-    dfl.columns = ['Task', 'Group', y_title]
+    dfl.columns = ['Problem', 'Group', y_title]
     # put H on left side in plot
     if dfl.iloc[0]['Group'] != 'Correct':
         b, c = dfl.iloc[0].copy(), dfl[dfl['Group']=='Correct'].iloc[0].copy()
@@ -184,18 +186,18 @@ def boxplot_distribution(distribution, y_title, figureName):
     fig = plt.figure(figsize=(15, 8))
     plt.xticks(fontsize=28, )
     plt.yticks(fontsize=28, )
-    bp = sns.boxplot(x='Task', y=y_title, data=dfl, showfliers=False, palette=colors, hue='Group', width=0.7, notch=False)
+    bp = sns.boxplot(x='Problem', y=y_title, data=dfl, showfliers=False, palette=colors, hue='Group', width=0.7, notch=False)
     # bp.set_xticklabels(bp.get_xticklabels(), rotation=320)
     bp.set_xticklabels(bp.get_xticklabels())
     # bp.set_xticklabels(bp.get_xticklabels(), fontsize=28)
     # bp.set_yticklabels(bp.get_yticklabels(), fontsize=28)
-    plt.xlabel('Task', size=32)
+    plt.xlabel('Problem', size=36)
     plt.ylabel(y_title, size=30)
-    plt.legend(fontsize=28, loc=1)
+    plt.legend(fontsize=28, loc=4)
     # plt.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", borderaxespad=0, ncol=3, fontsize=30, )
     adjust_box_widths(fig, 0.8)
     # plt.tight_layout()
-    plt.subplots_adjust(bottom=0.2, left=0.1)
+    plt.subplots_adjust(bottom=0.2, left=0.15)
     plt.savefig('./figure/' + figureName)
     print('The figure is saved to ./figure/' + figureName)
     plt.show()
@@ -218,8 +220,8 @@ def boxplot_distribution(distribution, y_title, figureName):
     length_correct_list = dfl[dfl.iloc[:]['Group'] == 'Correct'][y_title].tolist()
     length_incorrect_list = dfl[dfl.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
     try:
-        hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-        # hypo = stats.mannwhitneyu(correct_list, incorrect_list, alternative='two-sided')
+        # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+        hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
         p_value = hypo[1]
     except Exception as e:
         if 'identical' in e:
@@ -231,15 +233,15 @@ def boxplot_distribution(distribution, y_title, figureName):
         print('Support Null Hypothesis!')
 
     # enumerate every questions
-    question_list = sorted(set(dfl['Task'].tolist()))
+    question_list = sorted(set(dfl['Problem'].tolist()))
     for q in question_list:
         print(q, end=': ')
-        dfl_ques = dfl[dfl.iloc[:]['Task'] == q]
+        dfl_ques = dfl[dfl.iloc[:]['Problem'] == q]
         length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
         length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
         try:
-            hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-            # hypo = stats.mannwhitneyu(correct_list, incorrect_list, alternative='two-sided')
+            # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+            hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
             p_value = hypo[1]
         except Exception as e:
             if 'identical' in e:
@@ -289,9 +291,9 @@ if __name__ == '__main__':
     # bug_detection(all_assignments, descriptions)
 
     # RQ-2
-    program_repair(path, model='ChatGPT')
+    # program_repair(path, model='ChatGPT')
 
     #RQ-3
-    # code_explanation(path)
+    code_explanation(path)
 
 
