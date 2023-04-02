@@ -7,17 +7,23 @@ We present an empirical study of ChatGPT's potential as a fully automated progra
 ## Ⅰ) Dataset
 ### A) Benchmark 
 Refactory: https://github.com/githubhuyang/refactory
+
 LeetCode:
+
 ### B) Responses received 
 Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
   1. data: the responses produced by ChatGPT and Codex.
   2. data_des: the responses produced by ChatGPT_D and Codex_D.
 
+Copy the data to the root path of Refactory.
+
 ## Ⅱ) Requirements
 ### A) Environment 
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
-
+### A) Config
+  * update your data path in **config.py**.
+  
 ## Ⅲ) Experiment
 To obtain the experimental results of our paper, execute `run.py` with the following parameters:
 
