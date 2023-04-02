@@ -87,7 +87,7 @@ def ask(prompt):
     return answer
 
 def repair(path):
-    if not 'data_nocomments_des' in path:
+    if not 'data_des' in path:
         fixed_id = json.load(open("fixed_id.json"))
     else:
         fixed_id = json.load(open("fixed_id_des.json"))
@@ -183,9 +183,9 @@ def repair(path):
             # if cost <= 2:
             #     time.sleep(2 - cost)
             print('{}: {}'.format(cnt, buggy_file_name))
-        response_time_average = np.array(response_time).mean()
-        print('Response time average:')
-        print('{}: {}'.format(q, response_time_average))
+        # response_time_average = np.array(response_time).mean()
+        # print('Response time average:')
+        # print('{}: {}'.format(q, response_time_average))
 
 
     # code = ''
@@ -201,7 +201,7 @@ def repair(path):
     #     stop=["###"]
     # )
 
-def validate(path):
+def validate(path, metric):
     all_result = []
     fixed_id = {}
     check = []
@@ -246,21 +246,22 @@ def validate(path):
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         all_result.append([cnt, correct, wrong, error, correct/cnt])
 
-    print('lets check: {}'.format(sorted(check)))
-    if not 'data_nocomments_des' in path:
+    # print('lets check: {}'.format(sorted(check)))
+    if not 'data_des' in path:
         json.dump(fixed_id, open('fixed_id.json', 'w+'))
     else:
         json.dump(fixed_id, open('fixed_id_des.json', 'w+'))
 
-    print("cnt, correct, wrong, error, fix rate")
-    print(all_result[0],)
-    print(all_result[1])
-    print(all_result[2])
-    print(all_result[3])
-    print(all_result[4])
-    all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
-    all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
-    print('fix rate: {}'.format(all_correctness/all_cnt))
+    if metric == 'AVG5':
+        print("cnt, correct, wrong, error, fix rate")
+        print(all_result[0],)
+        print(all_result[1])
+        print(all_result[2])
+        print(all_result[3])
+        print(all_result[4])
+        all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
+        all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
+        print('fix rate: {}'.format(all_correctness/all_cnt))
 
 def validate_case(path):
     all_result = []
@@ -310,7 +311,7 @@ def validate_case(path):
 def calculate(path):
     all_cnt = 1783
     fix_cnt = 0
-    if not 'data_nocomments_des' in path:
+    if not 'data_des' in path:
         with open('fixed_id.json', 'r+') as f:
             dict = json.load(f)
     else:

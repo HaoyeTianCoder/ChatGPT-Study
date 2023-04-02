@@ -2,7 +2,7 @@ import os
 import re
 
 # root path
-top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data_nocomments"
+top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data"
 
 # for folder
 def rectify_answer(path):

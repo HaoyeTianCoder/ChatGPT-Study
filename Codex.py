@@ -11,7 +11,7 @@ openai.api_key = "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"
 
 
 def repair(path):
-    if not 'data_nocomments_des' in path:
+    if not 'data_des' in path:
         fixed_id = json.load(open("fixed_codex_id.json"))
     else:
         fixed_id = json.load(open("fixed_codex_id_des.json"))
@@ -105,7 +105,7 @@ def repair(path):
         print('{}: {}'.format(q, response_time_average))
 
 
-def validate(path):
+def validate(path, metric):
     all_result = []
     fixed_id = {}
     check = []
@@ -128,7 +128,7 @@ def validate(path):
             # if not (file_name.startswith('fixed_') or file_name.startswith('fixed2_') or file_name.startswith('fixed3_') or file_name.startswith('fixed4_')):# TOP-N
             #     continue
             path_fixed_assign = os.path.join(path_fixed_code, assign)
-            print(file_name, end=' ')
+            # print(file_name, end=' ')
             if file_name == 'fixed4_3_075.pure.py' or file_name == 'fixed5_1_219.pure.py':
                 print('{}: incorrect!'.format(file_name))
                 wrong += 1
@@ -159,26 +159,27 @@ def validate(path):
                     # print(path_fixed_assign)
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         all_result.append([cnt, correct, wrong, error, correct/cnt])
-    print('lets check: {}'.format(sorted(check)))
-    if not 'data_nocomments_des' in path:
+    # print('lets check: {}'.format(sorted(check)))
+    if not 'data_des' in path:
         json.dump(fixed_id, open('fixed_codex_id.json', 'w+'))
     else:
         json.dump(fixed_id, open('fixed_codex_id_des.json', 'w+'))
 
-    print("cnt, correct, wrong, error, fix rate")
-    print(all_result[0],)
-    print(all_result[1])
-    print(all_result[2])
-    print(all_result[3])
-    print(all_result[4])
-    all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
-    all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
-    print('fix rate: {}'.format(all_correctness/all_cnt))
+    if metric == 'AVG5':
+        print("cnt, correct, wrong, error, fix rate")
+        print(all_result[0],)
+        print(all_result[1])
+        print(all_result[2])
+        print(all_result[3])
+        print(all_result[4])
+        all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
+        all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
+        print('fix rate: {}'.format(all_correctness/all_cnt))
 
-def calculate():
+def calculate(path):
     all_cnt = 1783
     fix_cnt = 0
-    if not 'data_nocomments_des' in path:
+    if not 'data_des' in path:
         with open('fixed_codex_id.json', 'r+') as f:
             dict = json.load(f)
     else:
@@ -204,8 +205,8 @@ def calculate():
 
 if __name__ == '__main__':
 
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments_des/'
+    path = '/Users/haoye.tian/Documents/University/project/refactory/data_des/'
     # repair(path)
-    validate(path)
+    validate(path, 'AVG5')
     # calculate()
 

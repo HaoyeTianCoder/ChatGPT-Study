@@ -2,8 +2,8 @@ import os
 import shutil
 import ChatGPT as chatgpt
 
-path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
-path2 = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments_des/'
+path = '/Users/haoye.tian/Documents/University/project/refactory/data/'
+path2 = '/Users/haoye.tian/Documents/University/project/refactory/data_des/'
 fixed = chatgpt.validate_case(path)
 fixed2 = chatgpt.validate_case(path2)
 

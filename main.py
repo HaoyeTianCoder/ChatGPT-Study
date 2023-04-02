@@ -18,6 +18,8 @@ from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import statsmodels.api as sm
+import config
+
 
 def load_data():
     data_path = '/Users/haoye.tian/Documents/University/project/refactory/data'
@@ -60,19 +62,27 @@ def load_data():
 def bug_detection(all_assignments, descriptions):
     chatgpt.ifbug(all_assignments, descriptions)
 
-def program_repair(path, model):
+def program_repair(path, model, step):
     if model == 'ChatGPT':
-        # chatgpt.repair(path)
-        # chatgpt.validate(path)
-        chatgpt.validate_case(path)
-        # chatgpt.calculate(path)
+        if step == 'repair':
+            chatgpt.repair(path)
+        elif step == 'validate':
+            chatgpt.validate(path, metric='AVG5')
+            # chatgpt.validate_case(path)
+        # elif step == 'validate-top5':
+        #     chatgpt.validate(path, metric='TOP5')
+        #     chatgpt.calculate(path)
     elif model == 'Codex':
-        # codex.repair(path)
-        # codex.validate(path)
-        codex.calculate()
+        if step == 'repair':
+            codex.repair(path)
+        elif step == 'validate':
+            codex.validate(path, metric='AVG5')
+        # elif step == 'validate-top5':
+        #     codex.validate(path, metric='TOP5')
+        #     codex.calculate(path)
 
 
-def code_explanation(path):
+def code_explanation(path, exp):
 
     # chatgpt.explain(path)
     # chatgpt.explain_separated('./separation/')
@@ -80,8 +90,10 @@ def code_explanation(path):
     # w2v.obtain_vectors(path)
     # run word2vector.py
 
-    # calculate_distribution1()
-    calculate_distribution2()
+    if exp == 'exp1':
+        calculate_distribution1()
+    elif exp == 'exp2':
+        calculate_distribution2()
     # calculate_distribution3()
 
 def calculate_distribution2():
@@ -124,14 +136,14 @@ def calculate_distribution1():
         des_vector = description_vectors[int(k)-1]
 
         correct_vectors = v['correct']
-        print('correct:')
+        # print('correct:')
         for i in range(len(correct_vectors)):
             sim = cosine_similarity(correct_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
             result.append([k, 'Correct', sim[0][0]])
 
         # print('correct similarity: {}'.format(np.array(result[k][0]).mean()))
         wrong_vectors = v['wrong']
-        print('wrong:')
+        # print('wrong:')
         for i in range(len(wrong_vectors)):
             sim = cosine_similarity(wrong_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
             result.append([k, 'Incorrect', sim[0][0]])
@@ -215,42 +227,42 @@ def boxplot_distribution(distribution, y_title, figureName):
     #     mean_number = distribution_inc[distribution_inc[:, 0] == (str(i))][:,2].astype(int).mean()
     #     incorrect_list.append(mean_number)
 
-    # MWW test
-    print()
-    length_correct_list = dfl[dfl.iloc[:]['Group'] == 'Correct'][y_title].tolist()
-    length_incorrect_list = dfl[dfl.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
-    try:
-        # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-        hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
-        p_value = hypo[1]
-    except Exception as e:
-        if 'identical' in e:
-            p_value = 1
-    print('p-value: {}'.format(p_value))
-    if p_value <= 0.05:
-        print('Reject Null Hypothesis: Significantly different!')
-    else:
-        print('Support Null Hypothesis!')
-
-    # enumerate every questions
-    question_list = sorted(set(dfl['Problem'].tolist()))
-    for q in question_list:
-        print(q, end=': ')
-        dfl_ques = dfl[dfl.iloc[:]['Problem'] == q]
-        length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
-        length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
-        try:
-            # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-            hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
-            p_value = hypo[1]
-        except Exception as e:
-            if 'identical' in e:
-                p_value = 1
-        print('p-value: {}'.format(p_value))
-        if p_value <= 0.05:
-            print('Reject Null Hypothesis: Significantly different!')
-        else:
-            print('Support Null Hypothesis!')
+    # # MWW test
+    # print()
+    # length_correct_list = dfl[dfl.iloc[:]['Group'] == 'Correct'][y_title].tolist()
+    # length_incorrect_list = dfl[dfl.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
+    # try:
+    #     # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+    #     hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
+    #     p_value = hypo[1]
+    # except Exception as e:
+    #     if 'identical' in e:
+    #         p_value = 1
+    # print('p-value: {}'.format(p_value))
+    # if p_value <= 0.05:
+    #     print('Reject Null Hypothesis: Significantly different!')
+    # else:
+    #     print('Support Null Hypothesis!')
+    #
+    # # enumerate every questions
+    # question_list = sorted(set(dfl['Problem'].tolist()))
+    # for q in question_list:
+    #     print(q, end=': ')
+    #     dfl_ques = dfl[dfl.iloc[:]['Problem'] == q]
+    #     length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
+    #     length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
+    #     try:
+    #         # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+    #         hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
+    #         p_value = hypo[1]
+    #     except Exception as e:
+    #         if 'identical' in e:
+    #             p_value = 1
+    #     print('p-value: {}'.format(p_value))
+    #     if p_value <= 0.05:
+    #         print('Reject Null Hypothesis: Significantly different!')
+    #     else:
+    #         print('Support Null Hypothesis!')
 
 def adjust_box_widths(g, fac):
     """
@@ -285,15 +297,41 @@ def adjust_box_widths(g, fac):
 
 
 if __name__ == '__main__':
-    path = '/Users/haoye.tian/Documents/University/project/refactory/data_nocomments/'
+    cfig = config.Config()
+    path = cfig.path
+
+    if len(sys.argv) == 2:
+        script_name = sys.argv[0]
+        arg1 = sys.argv[1]
+        arg2 = ''
+        arg3 = ''
+    elif len(sys.argv) == 3:
+        script_name = sys.argv[0]
+        arg1 = sys.argv[1]
+        arg2 = sys.argv[2]
+        arg3 = ''
+    elif len(sys.argv) == 4:
+        script_name = sys.argv[0]
+        arg1 = sys.argv[1]
+        arg2 = sys.argv[2]
+        arg3 = sys.argv[3]
+    else:
+        arg1 = 'RQ2'
+        arg2 = 'repair'
+        arg3 = 'ChatGPT'
+    print('RQ: {}'.format(arg1))
 
     # all_assignments, descriptions = load_data()
     # bug_detection(all_assignments, descriptions)
 
-    # RQ-2
-    # program_repair(path, model='ChatGPT')
-
-    #RQ-3
-    code_explanation(path)
+    if arg1 == 'RQ2':
+        step = arg2
+        model = arg3
+        # RQ-2
+        program_repair(path, model, step)
+    elif arg1 == 'RQ3':
+        exp = arg2
+        #RQ-3
+        code_explanation(path, exp)
 
 
