@@ -19,6 +19,9 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import statsmodels.api as sm
 import config
+from generation_util import GenerationUtil
+from leetcode_util import LeetCodeUtil
+from leetcode_analysis import get_latex_tables, length_analysis
 
 
 def load_data():
@@ -61,6 +64,20 @@ def load_data():
 
 def bug_detection(all_assignments, descriptions):
     chatgpt.ifbug(all_assignments, descriptions)
+
+def code_generation(model, step):
+    # root dir of the dataset, model name, step name (generation, submit, validate)
+    if step=='generation':
+        gen=GenerationUtil(model)
+        gen.generate_all(True, True)
+    elif step=='submit':
+        lc=LeetCodeUtil()
+        lc.run_leetcode_test(model)
+    elif step=='tables':
+        table1, table2=get_latex_tables()
+    elif step=='length':
+        length_analysis()
+        
 
 def program_repair(path, model, step):
     if model == 'ChatGPT':
@@ -333,5 +350,9 @@ if __name__ == '__main__':
         exp = arg2
         #RQ-3
         code_explanation(path, exp)
+    elif arg1 == 'RQ1':
+        step = arg2
+        model = arg3
+        code_generation(model, step)
 
 
