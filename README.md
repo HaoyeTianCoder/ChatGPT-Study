@@ -5,23 +5,22 @@ An Empirical Study of ChatGPT
 We present an empirical study of ChatGPT's potential as a fully automated programming assistant, focusing on the tasks of code generation, program repair, and code summariziation.
 
 ## Ⅰ) Dataset
-### A) Benchmark 
-Refactory: https://github.com/githubhuyang/refactory
-
-LeetCode:
-
-### B) Responses received 
 Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
-  1. data: the responses produced by ChatGPT and Codex.
-  2. data_des: the responses produced by ChatGPT_D and Codex_D.
-
-Copy the data to the root path of Refactory.
+### A) LeetCode
+1. Problems: code_generation_dataset/problems
+2. Responses: code_generation_dataset/results
+### B) Refactory
+1. Problems: data/.../code/(in)correct/
+2. Responses:
+   1. data/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT and Codex.
+   2. data_des/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT_D and Codex_D.
+   3. data/.../code/explanation/: the responses of code explanation produced by ChatGPT.
 
 ## Ⅱ) Requirements
 ### A) Environment 
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
-### A) Config
+### A) Configuration
   * update your data path in **config.py**.
   
 ## Ⅲ) Experiment
