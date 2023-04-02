@@ -20,7 +20,7 @@ Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
 ### A) Environment 
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
-### A) Configuration
+### B) Configuration
   * update your data path in **config.py**.
   
 ## Ⅲ) Experiment
