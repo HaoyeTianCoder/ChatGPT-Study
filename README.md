@@ -10,7 +10,7 @@ Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
 1. Problems: code_generation_dataset/problems
 2. Responses: code_generation_dataset/results
 ### B) Refactory
-1. Problems: data/.../code/(in)correct/
+1. Submissions: data/.../code/(in)correct/
 2. Responses:
    1. data/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT and Codex.
    2. data_des/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT_D and Codex_D.
@@ -24,7 +24,7 @@ Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
   * update your data path in **config.py**.
   
 ## Ⅲ) Experiment
-To obtain the experimental results of our paper, execute `run.py` with the following parameters:
+To obtain the experimental results of our paper, execute `main.py` with the following parameters:
 
 ### A) Sec. 4.1 (RQ-1: ChatGPT for Code Generation)
 
