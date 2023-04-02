@@ -6,21 +6,29 @@ We present an empirical study of ChatGPT's potential as a fully automated progra
 
 ## Ⅰ) Dataset
 Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
-  1. data: the responses produced by ChatGPT and Codex.
-  2. data_des: the responses produced by ChatGPT_D and Codex_D.
+### A) LeetCode
+1. Problems: code_generation_dataset/problems
+2. Responses: code_generation_dataset/results
+### B) Refactory
+1. Submissions: data/.../code/(in)correct/
+2. Responses:
+   1. data/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT and Codex.
+   2. data_des/.../code/fixed(_codex)/: the responses of program repair produced by ChatGPT_D and Codex_D.
+   3. data/.../code/explanation/: the responses of code explanation produced by ChatGPT.
 
 ## Ⅱ) Requirements
 ### A) Environment 
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
-
+### A) Configuration
+  * update your data path in **config.py**.
+  
 ## Ⅲ) Experiment
-
-To obtain the experimental results of our paper, execute `run.py` with the following parameters:
+To obtain the experimental results of our paper, execute `main.py` with the following parameters:
 
 ### A) Sec. 4.1 (RQ-1: ChatGPT for Code Generation)
 
-### A) Sec. 4.2 (RQ-2: ChatGPT for Program Repair)
+### B) Sec. 4.2 (RQ-2: ChatGPT for Program Repair)
 Request ChatGPT to repair incorrect codes and save the responses in the folder **fixed**.
 ```
 python main.py RQ2 repair ChatGPT
@@ -29,8 +37,9 @@ Validate the patched codes produced by ChatGPT.
 ```
 python main.py RQ2 validate ChatGPT
 ```
+perform Codex experiments by replacing ChatGPT with Codex.
 
-### A) Sec. 4.3 (RQ-3: ChatGPT for Code Summarization)
+### C) Sec. 4.3 (RQ-3: ChatGPT for Code Summarization)
 Calculate similarity distributions in experiment 1.
 ```
 python main.py RQ3 exp1
