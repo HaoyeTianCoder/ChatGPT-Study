@@ -32,10 +32,6 @@ Request ChatGPT to generate codes and save the responses in the folder specified
 ```
 python main.py RQ1 generate ChatGPT
 ```
-Submit the generated codes produced by ChatGPT to LeetCode grader.
-```
-python main.py RQ1 submit ChatGPT
-```
 Print the Latex tables of submission results from ChatGPT, Codex, and CodeGen.
 ```
 python main.py RQ1 table

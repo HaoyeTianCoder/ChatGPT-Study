@@ -60,13 +60,10 @@ def bug_detection(all_assignments, descriptions):
     chatgpt.ifbug(all_assignments, descriptions)
 
 def code_generation(model, step):
-    # root dir of the dataset, model name, step name (generate, submit, table, length)
+    # root dir of the dataset, model name, step name (generate, table, length)
     if step=='generate':
         gen=GenerationUtil(model)
         gen.generate_all(True, True)
-    elif step=='submit':
-        lc=LeetCodeUtil()
-        lc.run_leetcode_test(model)
     elif step=='table':
         table1, table2=get_latex_tables()
     elif step=='length':
