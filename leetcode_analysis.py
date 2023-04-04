@@ -46,7 +46,8 @@ def get_boxplot_result(model_name:str, root_dir:str):
                 'use_ex':use_ex, 'use_con':use_con, 'use_ex_con':use_ex_con, 'test_num':test_num}
 
     result_files=glob.glob(f'{root_dir}/results/{model_name}/**/*output*result.txt', recursive=True)
-    print(len(result_files))
+    if len(result_files)==0:
+        assert False, f'No result files found in {root_dir}/results/{model_name}'
     assert(len(result_files)==2*3*4*10*3*5)
     years, difficulties, problem_types, use_ex_cons=['2016-20','2022'],['easy','medium','hard'],['Array', 'Hash Table', 'Sorting', 'String'],['desc_ex_con','desc_ex_nocon','desc_noex_nocon']
     results_top5={yr:{d:{pt:{uec:dict() for uec in use_ex_cons} for pt in problem_types} for d in difficulties} for yr in years}
@@ -297,6 +298,8 @@ def draw_table(model_name:str, root_dir, ex_con:str, top_k=5) -> str:
                 'use_ex':use_ex, 'use_con':use_con, 'use_ex_con':use_ex_con, 'test_num':test_num}
 
     result_files=glob.glob(f'{root_dir}/results/{model_name}/**/*output*result.txt', recursive=True)
+    if len(result_files)==0:
+        assert False, f'No result files found in {root_dir}/results/{model_name}'
     assert(len(result_files)==2*3*4*10*3*top_k)
     years, difficulties, problem_types, use_ex_cons=['2016-20','2022'],['easy','medium','hard'],['Array', 'String', 'Hash Table', 'Sorting'],['desc_ex_con','desc_ex_nocon','desc_noex_nocon']
     results_top5={yr:{d:{pt:{uec:dict() for uec in use_ex_cons} for pt in problem_types} for d in difficulties} for yr in years}
