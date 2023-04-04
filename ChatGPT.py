@@ -6,7 +6,8 @@ import time
 import signal
 import json
 from main import *
-bot = ChatGPT()
+from basic_framework.core_testing import Tester
+bot = None
 
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, recall_score, precision_score
 
@@ -15,6 +16,8 @@ from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, re
 openai.api_key = "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"
 # models = openai.Model.list()
 
+def __init__():
+    bot = ChatGPT()
 
 def handler(signum, frame):
     raise Exception("time out")
