@@ -63,6 +63,10 @@ def code_generation(model, step):
         gen.generate_all(True, True)
     elif step=='table':
         table1, table2=get_latex_tables()
+        with open('./tables.tex', 'w') as f:
+            f.write(table1)
+            f.write(table2)
+        print('Tables are saved in ./tables.tex')
     elif step=='length':
         length_analysis()
         
