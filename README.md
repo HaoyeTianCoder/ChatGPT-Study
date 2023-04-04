@@ -21,6 +21,9 @@ Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
   * pip install git+https://github.com/mmabrouk/chatgpt-wrapper.git@v0.3.6
+  
+Follow instructions on https://github.com/mmabrouk/chatgpt-wrapper/tree/v0.3.6 to setup ChatGPT web interface.
+
 ### B) Configuration
   * update your data path in **config.py**.
   
