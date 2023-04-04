@@ -5,7 +5,7 @@ An Empirical Study of ChatGPT
 We present an empirical study of ChatGPT's potential as a fully automated programming assistant, focusing on the tasks of code generation, program repair, and code summariziation.
 
 ## Ⅰ) Dataset
-Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
+Zenodo Link: https://zenodo.org/record/7792965#.ZCvyv-xBwUE
 ### A) LeetCode
 1. Problems: code_generation_dataset/problems
 2. Responses: code_generation_dataset/results
