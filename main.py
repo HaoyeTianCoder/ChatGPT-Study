@@ -1,9 +1,6 @@
 import os
 import numpy as np
-try:
-    import ChatGPT as chatgpt
-except:
-    print('Cannot import ChatGPT')
+import ChatGPT as chatgpt
 import Codex as codex
 from basic_framework.template import *
 import pickle
