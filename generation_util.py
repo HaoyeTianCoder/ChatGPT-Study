@@ -71,8 +71,11 @@ class GenerationUtil:
         fail_cnt=0
         chatbot=self.chatbot
         while 'Unusable response produced by ChatGPT, maybe its unavailable.' in resp:
-            resp=chatbot.ask(prompt)
-            chatbot.new_conversation() # To start a new conversation
+            try:
+                resp=chatbot.ask(prompt)
+                chatbot.new_conversation() # To start a new conversation
+            except Exception as e:
+                resp='Unusable response produced by ChatGPT, maybe its unavailable.'
             if fail_cnt==0: pass
             elif fail_cnt==5:
                 print('Failed',fail_cnt,'time(s).')
