@@ -28,6 +28,22 @@ Zenodo Link: https://zenodo.org/record/7790888#.ZCfkuOwzZhE
 To obtain the experimental results of our paper, execute `main.py` with the following parameters:
 
 ### A) Sec. 4.1 (RQ-1: ChatGPT for Code Generation)
+Request ChatGPT to generate codes and save the responses in the folder specified in `Config().generation_path`.
+```
+python main.py RQ1 generate ChatGPT
+```
+Submit the generated codes produced by ChatGPT to LeetCode grader.
+```
+python main.py RQ1 submit ChatGPT
+```
+Print the Latex tables of submission results from ChatGPT, Codex, and CodeGen.
+```
+python main.py RQ1 table
+```
+Draw the boxplot of prompt lengths of correct and incorrect problems.
+```
+python main.py RQ1 length
+```
 
 ### B) Sec. 4.2 (RQ-2: ChatGPT for Program Repair)
 Request ChatGPT to repair incorrect codes and save the responses in the folder **fixed**.
