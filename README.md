@@ -25,7 +25,7 @@ Zenodo Link: https://zenodo.org/record/7792965#.ZCvyv-xBwUE
 Follow instructions on https://github.com/mmabrouk/chatgpt-wrapper/tree/v0.3.6 to setup ChatGPT web interface.
 
 ### B) Configuration
-  * update your data path in **config.py**.
+  * update the absolute path of datasets in **config.py**.
   
 ## Ⅲ) Experiment
 To obtain the experimental results of our paper, execute `main.py` with the following parameters:
