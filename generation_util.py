@@ -64,7 +64,7 @@ class GenerationUtil:
                     print('Response written to',output_path)
                 print('Time used:',time_used)
                 py_file_path=LeetCodeUtil().generate_submit_file(output_path, self.model_name)
-                LeetCodeUtil().remove_leetcode_result(py_file_path)
+                # LeetCodeUtil().remove_leetcode_result(py_file_path)
                 
     def generate_chatgpt(self, prompt):
         resp='Unusable response produced by ChatGPT, maybe its unavailable.'
