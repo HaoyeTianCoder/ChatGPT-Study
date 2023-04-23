@@ -53,7 +53,7 @@ Validate the patched codes produced by ChatGPT.
 ```
 python main.py RQ2 validate ChatGPT
 ```
-perform Codex experiments by replacing ChatGPT with Codex.
+Perform Codex experiments by replacing ChatGPT with Codex. Evaluate ChatGPT_D and Codex_D by using 'data_des' instead of 'data' in **config.py**.
 
 ### C) Sec. 4.3 (RQ-3: ChatGPT for Code Summarization)
 Calculate similarity distributions in experiment 1.
