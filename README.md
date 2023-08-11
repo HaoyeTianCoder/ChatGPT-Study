@@ -60,7 +60,11 @@ Calculate similarity distributions in experiment 1.
 ```
 python main.py RQ3 exp1
 ```
-Calculate similarity distributions in experiment 2.
-```
-python main.py RQ3 exp2
-```
+
+[//]: # (Calculate similarity distributions in experiment 2.)
+
+[//]: # (```)
+
+[//]: # (python main.py RQ3 exp2)
+
+[//]: # (```)
