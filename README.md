@@ -1,4 +1,4 @@
-# In What Way is an LLM a Useful Assistant Bot for Programmers? An Empirical Study
+# ChatGPT as the Ultimate Programming Assistant: How Far Is It?
 
 An Empirical Study of ChatGPT
 =======
@@ -20,9 +20,9 @@ Zenodo Link: https://zenodo.org/record/7792965#.ZCvyv-xBwUE
 ### A) Environment 
   * python 3.9 (Anaconda recommended)
   * pip install -r requirements.txt
-  * pip install git+https://github.com/mmabrouk/chatgpt-wrapper.git@v0.3.6
-  
-Follow instructions on https://github.com/mmabrouk/chatgpt-wrapper/tree/v0.3.6 to setup ChatGPT web interface.
+
+[//]: # (  * pip install git+https://github.com/mmabrouk/chatgpt-wrapper.git@v0.3.6)
+[//]: # (Follow instructions on https://github.com/mmabrouk/chatgpt-wrapper/tree/v0.3.6 to setup ChatGPT web interface.)
 
 ### B) Configuration
   * update the absolute path of datasets in **config.py**.
@@ -53,7 +53,7 @@ Validate the patched codes produced by ChatGPT.
 ```
 python main.py RQ2 validate ChatGPT
 ```
-Perform Codex experiments by replacing ChatGPT with Codex. Evaluate ChatGPT_D and Codex_D by using 'data_des' instead of 'data' in **config.py**.
+Perform Codex experiments by replacing ChatGPT with Codex. Evaluate ChatGPT_D and Codex_D by using 'data_des' instead of 'data' in `Config().path`.
 
 ### C) Sec. 4.3 (RQ-3: ChatGPT for Code Summarization)
 Calculate similarity distributions in experiment 1.
