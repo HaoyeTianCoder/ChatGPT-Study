@@ -7,17 +7,17 @@ import signal
 import json
 from main import *
 from basic_framework.core_testing import Tester
-bot = None
+bot = ChatGPT()
 
 from sklearn.metrics import confusion_matrix, roc_curve, auc, accuracy_score, recall_score, precision_score
 
 # Load your API key from an environment variable or secret management service
 # openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "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"
+openai.api_key = "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"
 # models = openai.Model.list()
 
-def __init__():
-    bot = ChatGPT()
+# def __init__():
+#     bot = ChatGPT()
 
 def handler(signum, frame):
     raise Exception("time out")
@@ -89,10 +89,14 @@ def ask(prompt):
     answer = bot.ask(prompt)
     return answer
 
-def repair(path):
+def repair(path, t):
     if not 'data_des' in path:
+        if not os.path.exists("fixed_id.json"):
+            json.dump({"question_1":[], "question_2":[], "question_3":[], "question_4":[], "question_5":[]}, open('fixed_id.json', 'w+'))
         fixed_id = json.load(open("fixed_id.json"))
     else:
+        if not os.path.exists("fixed_id_des.json"):
+            json.dump({"question_1":[], "question_2":[], "question_3":[], "question_4":[], "question_5":[]}, open('fixed_id_des.json', 'w+'))
         fixed_id = json.load(open("fixed_id_des.json"))
     # keep same with Codex
     descriptions = [
@@ -128,7 +132,7 @@ def repair(path):
             # if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             #     continue
             id = assign.split('_')[2]
-            fixed_file_name = buggy_file_name.replace('wrong', 'fixed2')
+            fixed_file_name = buggy_file_name.replace('wrong', 'fixed'+t) # enumerate fixed, fixed2, ..., fixed3
             # if id in ids or os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
             if os.path.exists(os.path.join(path_fixed_code, fixed_file_name)):
                 continue
@@ -149,15 +153,15 @@ def repair(path):
             begin = time.time()
             signal.alarm(60*5)
             try:
-                # ChatGPT window
-                answer = bot.ask(prompt)
-                # # ChatGPT API
-                # completion = openai.ChatCompletion.create(
-                #     model="gpt-3.5-turbo",
-                #     messages=[
-                #         {"role": "user", "content": prompt}]
-                # )
-                # answer = completion.choices[0].message.content
+                # # ChatGPT window
+                # answer = bot.ask(prompt)
+                # ChatGPT API
+                completion = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "user", "content": prompt}]
+                )
+                answer = completion.choices[0].message.content
                 if answer == '':
                     raise Exception('null answer')
                 elif 'ChatGPT' and 'unavailable' in answer:
@@ -207,10 +211,12 @@ def repair(path):
 def validate(path, metric):
     all_result = []
     fixed_id = {}
+    all_id = {}
     check = []
     for q in ['question_1', 'question_2', 'question_3', 'question_4', 'question_5']:
         print(q)
         fixed_id[q] = []
+        all_id[q] = []
         question_path = path + q
         t = Tester(question_path)
         path_fixed_code = os.path.join(question_path, 'code/fixed')
@@ -233,14 +239,16 @@ def validate(path, metric):
                     continue
                     # raise e
                 tr = t.tv_code(corr_code)
+                assign_id = file_name.split('_')[2]
+                if assign_id not in all_id[q]:
+                    all_id[q].append(assign_id)
                 if t.is_pass(tr):
                     # corr_code_map[file_name] = corr_code
                     print('{}: correct!'.format(file_name))
+                    correct += 1
                     # q_id = file_name.split('_')[1]
-                    assign_id = file_name.split('_')[2]
                     if assign_id not in fixed_id[q]:
                         fixed_id[q].append(assign_id)
-                        correct += 1
                 else:
                     print('{}: incorrect!'.format(file_name))
                     wrong += 1
@@ -249,22 +257,25 @@ def validate(path, metric):
                     # shutil.move(corr_code_path, pseudo_corr_dir_path)
         all_result.append([cnt, correct, wrong, error, correct/cnt])
 
+    # print(sorted(list(set(all_id['question_5']) - set(fixed_id['question_5']))))
     # print('lets check: {}'.format(sorted(check)))
     if not 'data_des' in path:
         json.dump(fixed_id, open('fixed_id.json', 'w+'))
     else:
         json.dump(fixed_id, open('fixed_id_des.json', 'w+'))
 
-    if metric == 'AVG5':
-        print("cnt, correct, wrong, error, fix rate")
-        print(all_result[0],)
-        print(all_result[1])
-        print(all_result[2])
-        print(all_result[3])
-        print(all_result[4])
-        all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
-        all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
-        print('fix rate: {}'.format(all_correctness/all_cnt))
+    # if metric == 'AVG5':
+    print("AVG-5")
+    print("cnt, correct, wrong, error, fix rate")
+    print(all_result[0],)
+    print(all_result[1])
+    print(all_result[2])
+    print(all_result[3])
+    print(all_result[4])
+    all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
+    all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
+    print('################')
+    print('All: fix rate: {}'.format(all_correctness/all_cnt))
 
 def validate_case(path):
     all_result = []
@@ -312,6 +323,7 @@ def validate_case(path):
     return fixed_id
 
 def calculate(path):
+    print('TOP-5')
     all_cnt = 1783
     fix_cnt = 0
     if not 'data_des' in path:
@@ -367,7 +379,7 @@ def explain(path):
                 begin = time.time()
                 signal.alarm(60*5)
                 try:
-                    # ChatGPT window
+                    # # ChatGPT window
                     # answer = bot.ask(prompt)
                     # ChatGPT API
                     completion = openai.ChatCompletion.create(
@@ -426,7 +438,7 @@ def explain_separated(path):
                 path_assign = os.path.join(path_root_code, assign)
                 code_content = open(path_assign).read().strip()
                 # prompt = description + "\nGiven this task, is the following code correct? Answer me only with yes or no.\n\n " + assig_stu
-                prompt = "Can you explain the intention of the below function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
+                prompt = "Can you explain the original intention of the below function(s) within one sentence? Do not include any explanations of code details in your answer:\n\n " + code_content
                 begin = time.time()
                 # OpenAI API
                 # response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=1000)

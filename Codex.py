@@ -147,11 +147,11 @@ def validate(path, metric):
                 if t.is_pass(tr):
                     # corr_code_map[file_name] = corr_code
                     print('{}: correct!'.format(file_name))
+                    correct += 1
                     # q_id = file_name.split('_')[1]
                     assign_id = file_name.split('_')[2]
                     if assign_id not in fixed_id[q]:
                         fixed_id[q].append(assign_id)
-                        correct += 1
                 else:
                     print('{}: incorrect!'.format(file_name))
                     wrong += 1
@@ -165,18 +165,21 @@ def validate(path, metric):
     else:
         json.dump(fixed_id, open('fixed_codex_id_des.json', 'w+'))
 
-    if metric == 'AVG5':
-        print("cnt, correct, wrong, error, fix rate")
-        print(all_result[0],)
-        print(all_result[1])
-        print(all_result[2])
-        print(all_result[3])
-        print(all_result[4])
-        all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
-        all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
-        print('fix rate: {}'.format(all_correctness/all_cnt))
+    # if metric == 'AVG5':
+    print('AVG-5')
+    print("cnt, correct, wrong, error, fix rate")
+    print(all_result[0],)
+    print(all_result[1])
+    print(all_result[2])
+    print(all_result[3])
+    print(all_result[4])
+    all_cnt = all_result[0][0] + all_result[1][0] + all_result[2][0] + all_result[3][0] + all_result[4][0]
+    all_correctness = all_result[0][1] + all_result[1][1] + all_result[2][1] + all_result[3][1] + all_result[4][1]
+    print('################')
+    print('All: fix rate: {}'.format(all_correctness/all_cnt))
 
 def calculate(path):
+    print('TOP-5')
     all_cnt = 1783
     fix_cnt = 0
     if not 'data_des' in path:
