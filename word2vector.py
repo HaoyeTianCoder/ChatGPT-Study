@@ -5,6 +5,9 @@ import numpy
 import json
 import pickle
 
+tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased")
+model = BertModel.from_pretrained("bert-large-uncased")
+
 def obtain_vectors(path):
     all = {'1': {'wrong':[], 'correct':[]},
            '2': {'wrong':[], 'correct':[]},
@@ -77,8 +80,6 @@ def obtain_vectors_separated(path):
 
 
 def word2vector(text):
-    tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased")
-    model = BertModel.from_pretrained("bert-large-uncased")
 
     inputs = tokenizer(text, return_tensors="pt")
     outputs = model(**inputs)

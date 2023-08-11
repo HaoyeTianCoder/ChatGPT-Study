@@ -6,7 +6,7 @@ import io
 import sys, token, tokenize
 
 # root path
-top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data"
+top_dir = "/Users/haoye.tian/Documents/University/project/refactory/data_new"
 
 # for folder
 def trim_dir(path):

@@ -13,6 +13,7 @@ import config
 from generation_util import GenerationUtil
 from leetcode_util import LeetCodeUtil
 from leetcode_analysis import get_latex_tables, length_analysis
+import scipy.stats as stats
 
 
 def load_data():
@@ -56,7 +57,7 @@ def load_data():
 def bug_detection(all_assignments, descriptions):
     chatgpt.ifbug(all_assignments, descriptions)
 
-def code_generation(model, step):
+def code_generation(step, model):
     # root dir of the dataset, model name, step name (generate, table, length)
     if step=='generate':
         gen=GenerationUtil(model)
@@ -71,32 +72,31 @@ def code_generation(model, step):
         length_analysis()
         
 
-def program_repair(path, model, step):
+def program_repair(path, step, model):
     if model == 'ChatGPT':
         if step == 'repair':
-            chatgpt.repair(path)
+            for t in ['', '2', '3', '4', '5']:
+                chatgpt.repair(path, t=t)
         elif step == 'validate':
-            chatgpt.validate(path, metric='AVG5')
+            chatgpt.validate(path, metric='')
+            chatgpt.calculate(path)
             # chatgpt.validate_case(path)
-        # elif step == 'validate-top5':
-        #     chatgpt.validate(path, metric='TOP5')
-        #     chatgpt.calculate(path)
     elif model == 'Codex':
         if step == 'repair':
             codex.repair(path)
         elif step == 'validate':
-            codex.validate(path, metric='AVG5')
-        # elif step == 'validate-top5':
-        #     codex.validate(path, metric='TOP5')
-        #     codex.calculate(path)
+            codex.validate(path, metric='')
+            codex.calculate(path)
+
 
 
 def code_explanation(path, exp):
 
+    # generate natural language intention
     # chatgpt.explain(path)
     # chatgpt.explain_separated('./separation/')
 
-    # w2v.obtain_vectors(path)
+    # obtain_vectors
     # run word2vector.py
 
     if exp == 'exp1':
@@ -134,7 +134,7 @@ def calculate_distribution2():
                          'code_intention_similarity2.jpg')
 
 def calculate_distribution1():
-    with open('./explanation_vectors.pickle', 'rb') as f:
+    with open('./explanation_vectors_API.pickle', 'rb') as f:
         explanation_vectors = pickle.load(f)
     with open('./description_vectors.pickle', 'rb') as f:
         description_vectors = pickle.load(f)
@@ -147,15 +147,17 @@ def calculate_distribution1():
         correct_vectors = v['correct']
         # print('correct:')
         for i in range(len(correct_vectors)):
+            file_name = correct_vectors[i][0]
             sim = cosine_similarity(correct_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
-            result.append([k, 'Correct', sim[0][0]])
+            result.append([k, file_name, 'Correct', sim[0][0]])
 
         # print('correct similarity: {}'.format(np.array(result[k][0]).mean()))
         wrong_vectors = v['wrong']
         # print('wrong:')
         for i in range(len(wrong_vectors)):
+            file_name = wrong_vectors[i][0]
             sim = cosine_similarity(wrong_vectors[i][1].reshape(1, -1), des_vector.reshape(1, -1))
-            result.append([k, 'Incorrect', sim[0][0]])
+            result.append([k, file_name, 'Incorrect', sim[0][0]])
         # print('wrong similarity: {}'.format(np.array(result[k][1]).mean()))
 
     # result = [[subject, group, value]]
@@ -198,7 +200,7 @@ def calculate_distribution3():
 
 def boxplot_distribution(distribution, y_title, figureName):
     dfl = pd.DataFrame(distribution)
-    dfl.columns = ['Problem', 'Group', y_title]
+    dfl.columns = ['Problem', 'Name','Group', y_title]
     # put H on left side in plot
     if dfl.iloc[0]['Group'] != 'Correct':
         b, c = dfl.iloc[0].copy(), dfl[dfl['Group']=='Correct'].iloc[0].copy()
@@ -236,13 +238,26 @@ def boxplot_distribution(distribution, y_title, figureName):
     #     mean_number = distribution_inc[distribution_inc[:, 0] == (str(i))][:,2].astype(int).mean()
     #     incorrect_list.append(mean_number)
 
-    # # MWW test
-    # print()
+    incorrect_list = []
+    # distribution_inc = dfl[np.array(dfl)[:, 2] == 'Incorrect']
+    distribution_inc = dfl[dfl.iloc[:, 2] == 'Incorrect']
+    distribution_inc = distribution_inc[np.array(distribution_inc)[:, 0] == '2']
+    distribution_inc.iloc[:, 3] = distribution_inc.iloc[:, 3].astype(float)
+    sorted_distribution_inc = distribution_inc.sort_values(by=distribution_inc.columns[3], ascending=True)
+
+    correct_list = []
+    distribution_cor = dfl[dfl.iloc[:, 2] == 'Correct']
+    distribution_cor = distribution_cor[np.array(distribution_cor)[:, 0] == '2']
+    distribution_cor.iloc[:, 3] = distribution_cor.iloc[:, 3].astype(float)
+    sorted_distribution_cor = distribution_cor.sort_values(by=distribution_cor.columns[3], ascending=True)
+
+    # MWW test
+    print()
     # length_correct_list = dfl[dfl.iloc[:]['Group'] == 'Correct'][y_title].tolist()
     # length_incorrect_list = dfl[dfl.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
     # try:
-    #     # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-    #     hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
+    #     hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+    #     # hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
     #     p_value = hypo[1]
     # except Exception as e:
     #     if 'identical' in e:
@@ -252,26 +267,27 @@ def boxplot_distribution(distribution, y_title, figureName):
     #     print('Reject Null Hypothesis: Significantly different!')
     # else:
     #     print('Support Null Hypothesis!')
-    #
-    # # enumerate every questions
-    # question_list = sorted(set(dfl['Problem'].tolist()))
-    # for q in question_list:
-    #     print(q, end=': ')
-    #     dfl_ques = dfl[dfl.iloc[:]['Problem'] == q]
-    #     length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
-    #     length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
-    #     try:
-    #         # hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
-    #         hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
-    #         p_value = hypo[1]
-    #     except Exception as e:
-    #         if 'identical' in e:
-    #             p_value = 1
-    #     print('p-value: {}'.format(p_value))
-    #     if p_value <= 0.05:
-    #         print('Reject Null Hypothesis: Significantly different!')
-    #     else:
-    #         print('Support Null Hypothesis!')
+    # print()
+
+    # enumerate every questions
+    question_list = sorted(set(dfl['Problem'].tolist()))
+    for q in question_list:
+        print(q, end=': ')
+        dfl_ques = dfl[dfl.iloc[:]['Problem'] == q]
+        length_correct_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Correct'][y_title].tolist()
+        length_incorrect_list = dfl_ques[dfl_ques.iloc[:]['Group'] == 'Incorrect'][y_title].tolist()
+        try:
+            hypo = stats.mannwhitneyu(length_correct_list, length_incorrect_list, alternative='two-sided')
+            # hypo = sm.stats.ttest_ind(length_correct_list, length_incorrect_list)
+            p_value = hypo[1]
+        except Exception as e:
+            if 'identical' in e:
+                p_value = 1
+        print('p-value: {}'.format(p_value))
+        if p_value <= 0.05:
+            print('Reject Null Hypothesis: Significantly different!')
+        else:
+            print('Support Null Hypothesis!')
 
 def adjust_box_widths(g, fac):
     """
@@ -301,7 +317,8 @@ def adjust_box_widths(g, fac):
 
                 # setting new width of median line
                 for l in ax.lines:
-                    if np.all(l.get_xdata() == [xmin, xmax]):
+                    # if np.all(l.get_xdata() == [xmin, xmax]):
+                    if np.array_equal(l.get_xdata(), [xmin, xmax]):
                         l.set_xdata([xmin_new, xmax_new])
 
 
@@ -325,26 +342,27 @@ if __name__ == '__main__':
         arg2 = sys.argv[2]
         arg3 = sys.argv[3]
     else:
-        arg1 = 'RQ2'
-        arg2 = 'repair'
-        arg3 = 'ChatGPT'
+        arg1 = 'RQ3'
+        arg2 = 'exp1'
+        arg3 = ''
     print('RQ: {}'.format(arg1))
 
     # all_assignments, descriptions = load_data()
     # bug_detection(all_assignments, descriptions)
 
-    if arg1 == 'RQ2':
+    if arg1 == 'RQ1':
+        step = arg2
+        model = arg3
+        code_generation(step, model)
+    elif arg1 == 'RQ2':
         step = arg2
         model = arg3
         # RQ-2
-        program_repair(path, model, step)
+        program_repair(path, step, model)
     elif arg1 == 'RQ3':
         exp = arg2
         #RQ-3
         code_explanation(path, exp)
-    elif arg1 == 'RQ1':
-        step = arg2
-        model = arg3
-        code_generation(model, step)
+
 
 
