@@ -1,0 +1,1 @@
+The function filters the possible_birthdays list to extract the birthdays in the given month, then it checks if there is a unique day among these birthdays and returns True, otherwise it returns False.

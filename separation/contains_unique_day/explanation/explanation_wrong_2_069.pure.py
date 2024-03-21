@@ -1,0 +1,1 @@
+The function checks if there is exactly one unique day within the given month and possible_birthdays.

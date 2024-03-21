@@ -1,0 +1,1 @@
+The function `contains_unique_day` checks if there is at least one unique day among the possible birth dates for a given month, and returns `True` if there is, and `False` if there isn't.

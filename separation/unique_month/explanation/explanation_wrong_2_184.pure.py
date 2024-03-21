@@ -1,0 +1,1 @@
+The function checks if the input month is unique in the list of possible birthdays. If it is, it returns True, otherwise it returns False. The count_months() function is used to count how many times the input month appears in the list.

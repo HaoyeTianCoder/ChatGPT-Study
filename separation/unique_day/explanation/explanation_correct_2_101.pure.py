@@ -1,0 +1,1 @@
+The intention of the function is to check if the input date appears exactly once in the list of possible birthdays. The function `count_dates()` is used to count the occurrences of the input date in the list.

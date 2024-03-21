@@ -1,0 +1,1 @@
+The function checks if the input month appears in the first element of any of the tuples in the input list, and returns True if it does not, False otherwise.

@@ -1,0 +1,1 @@
+The function counts how many birthdays in a given list occur on a particular day, and returns True if there is only one birthday on that day and False otherwise.

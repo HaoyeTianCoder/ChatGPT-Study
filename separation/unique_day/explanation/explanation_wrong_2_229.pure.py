@@ -1,0 +1,1 @@
+It's not possible to answer this question without seeing the implementation of the `enumerate_tree` function, which is not provided in the code snippet.

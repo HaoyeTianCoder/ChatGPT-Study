@@ -1,0 +1,1 @@
+This function seems to be an empty template and does not have any code.

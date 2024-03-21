@@ -1,0 +1,1 @@
+The function checks if a specified month is not present in the first element of a list of possible birthdays and returns True if it is not present, and False otherwise.

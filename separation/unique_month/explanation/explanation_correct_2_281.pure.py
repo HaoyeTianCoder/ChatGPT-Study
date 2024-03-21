@@ -1,0 +1,1 @@
+The function checks if there is exactly one birthday in the given month by using a recursive map function to extract the months from the tuples in the input, filtering those that match the input month, and checking if the resulting tuple has exactly one element.

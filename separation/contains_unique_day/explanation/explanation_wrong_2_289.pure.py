@@ -1,0 +1,1 @@
+The function checks if any birthday in the given `month` has a unique day in the year, and returns `True` if it finds one and `False` otherwise.

@@ -1,0 +1,1 @@
+This function checks whether there is only one person in `possible_birthdays` whose birth month matches the input `month`. If there is only one such person, it returns `True`. Otherwise, it returns `False`.

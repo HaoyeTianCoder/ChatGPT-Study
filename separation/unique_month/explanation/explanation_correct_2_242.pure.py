@@ -1,0 +1,1 @@
+The function checks whether there is only one birthday in the provided list of possible birthdays that falls in the specified month, by counting the number of birthdays that fall in the specified month and returning `True` if the count is exactly 1, and `False` otherwise.

@@ -1,0 +1,1 @@
+This function checks whether there is at least one person in a list of possible birthdays who was born in a given month and has a unique birth day, and returns True if such person exists, otherwise it returns False.

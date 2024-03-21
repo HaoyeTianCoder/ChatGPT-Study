@@ -1,0 +1,1 @@
+The function takes a specific date and a list of possible birthdays, and checks if there is only one instance of that date in the list.

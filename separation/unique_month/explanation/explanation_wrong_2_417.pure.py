@@ -1,0 +1,1 @@
+The function checks if there is only one unique month that matches the given `month` in the list of `possible_birthdays`. If so, it returns `True`; otherwise, it returns `False`.

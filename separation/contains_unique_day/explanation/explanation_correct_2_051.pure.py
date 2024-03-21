@@ -1,0 +1,1 @@
+The function checks if there is at least one person in the input list who was born on a unique day within a given month.

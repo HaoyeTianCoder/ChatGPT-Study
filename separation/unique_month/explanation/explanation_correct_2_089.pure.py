@@ -1,0 +1,1 @@
+This function counts how many times a given `month` appears in a list of `possible_birthdays`, and returns `True` if it appears exactly once and `False` otherwise.

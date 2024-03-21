@@ -1,0 +1,1 @@
+The function checks if the given month does not occur in any of the possible birthdays and returns True, otherwise returns False.

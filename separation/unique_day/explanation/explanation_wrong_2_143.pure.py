@@ -1,0 +1,1 @@
+The function `unique_day` takes in a `date` and a list of `possible_birthdays`, and returns `True` if the date appears exactly once as the second element of any of the tuples in the list, and `False` otherwise.

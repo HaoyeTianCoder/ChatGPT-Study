@@ -1,0 +1,1 @@
+This function checks if the given month appears exactly once in a list of possible birthdays and returns True if it does, and False otherwise.

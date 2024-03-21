@@ -1,0 +1,1 @@
+This function checks if a given `day` appears exactly once in the list of `possible_birthdays` tuples, where each tuple consists of a name and a date. The function returns `True` if the given day appears only once and `False` otherwise.

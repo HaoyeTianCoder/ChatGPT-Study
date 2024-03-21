@@ -1,0 +1,1 @@
+The function checks whether a given month has only one unique birthday in a list of possible birthdays or not. If there is more than one birthday for that month, the function returns False, otherwise it returns True.

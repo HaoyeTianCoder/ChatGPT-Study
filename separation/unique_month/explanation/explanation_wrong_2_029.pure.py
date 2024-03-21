@@ -1,0 +1,1 @@
+The function `unique_month` returns `True` if there is only one occurrence of the given month in the list of `possible_birthdays`, and `False` otherwise.

@@ -1,0 +1,1 @@
+The function checks if there is at least one unique day among the possible birthdays for a given month, returning a boolean value accordingly, using filter and lambda to create a new tuple with unique days only.

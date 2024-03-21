@@ -1,0 +1,1 @@
+This function checks if the input `month` appears only once in the list of tuples `possible_birthdays` at position 0 of each tuple, and returns `True` if it does, and `False` otherwise.

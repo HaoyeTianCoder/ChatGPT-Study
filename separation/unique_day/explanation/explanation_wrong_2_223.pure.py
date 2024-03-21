@@ -1,0 +1,1 @@
+This function checks if there is only one person in the list of `possible_birthdays` who has the specified `day` as their birth day and returns True if there is exactly one, and False otherwise.

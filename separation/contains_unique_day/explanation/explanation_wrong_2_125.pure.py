@@ -1,0 +1,1 @@
+This function does not have any implementation to explain. It is returning `None` by default.

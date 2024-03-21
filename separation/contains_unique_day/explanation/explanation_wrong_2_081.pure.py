@@ -1,0 +1,1 @@
+The function `contains_unique_day()` takes a month and a list of possible birthdays, creates a new list of birthdays occurring in the specified month, and then checks if there is at least one birthday in the list with a unique day. If so, it returns True, otherwise it returns False.

@@ -1,0 +1,1 @@
+This function has an empty body, so it does not perform any specific action or return any value.

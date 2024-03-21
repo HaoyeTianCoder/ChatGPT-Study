@@ -1,0 +1,1 @@
+Without any code inside the function, it's hard to infer the intention, but the function may be incomplete or invalid. It may return an error or raise an exception if it's called.

@@ -1,0 +1,1 @@
+There is a typo in the code, as `true` should be `True`. The intention of the function is to check if the input `day` occurs exactly once among the days in the `possible_birthdays` list, and return `True` if so, otherwise `False`.

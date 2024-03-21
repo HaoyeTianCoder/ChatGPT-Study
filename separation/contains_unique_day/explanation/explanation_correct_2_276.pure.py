@@ -1,0 +1,1 @@
+The function checks if there exists a birthday in the input `possible_birthdays` that falls in the input `month` and has a unique day of the month.

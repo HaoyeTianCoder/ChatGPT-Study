@@ -1,0 +1,1 @@
+The function `unique_month` takes a month and a list of tuples representing dates, and returns True if the month appears only once in the list, and False otherwise.

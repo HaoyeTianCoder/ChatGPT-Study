@@ -1,0 +1,1 @@
+The function is intended to determine whether a list of possible birthdays for a given month contains only unique days.

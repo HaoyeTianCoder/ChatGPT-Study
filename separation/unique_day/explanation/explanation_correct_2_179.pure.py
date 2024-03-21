@@ -1,0 +1,1 @@
+This function checks if a given day appears only once among all possible birthdays. It does so by filtering out all possible birthdays that match the given day and returning True if the resulting tuple has length one, and False otherwise.

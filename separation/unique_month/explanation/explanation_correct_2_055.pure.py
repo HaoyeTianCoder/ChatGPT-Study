@@ -1,0 +1,1 @@
+The function creates a list of months from a list of possible birthdays.

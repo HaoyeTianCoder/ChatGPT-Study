@@ -1,0 +1,1 @@
+This function takes a date and a list of possible birthdays, and returns True if the date corresponds to a unique birthday in the list (i.e., if there is only one instance of that date in the list), and False otherwise.

@@ -1,0 +1,1 @@
+The function takes in a month and a list of possible birthdays, and checks whether there is at least one birthday in that month that occurs on a unique day (i.e., no other birthdays occur on the same day).

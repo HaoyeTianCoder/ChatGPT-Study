@@ -1,0 +1,1 @@
+The intention of the function is to determine if a given day (specified by the "day" parameter) occurs exactly once in a list of possible birthdays (specified by the "possible_birthdays" parameter).

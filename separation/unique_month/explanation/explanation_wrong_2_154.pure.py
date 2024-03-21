@@ -1,0 +1,1 @@
+This function does not have any implementation and will throw a `SyntaxError`.

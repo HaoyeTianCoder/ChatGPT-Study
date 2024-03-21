@@ -1,0 +1,1 @@
+The function `unique_day()` takes a date and a list of possible birthdays, and checks if the date appears in only one of the possible birthdays. It returns `True` if the date is unique, and `False` otherwise.

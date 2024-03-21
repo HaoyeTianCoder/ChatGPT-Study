@@ -1,0 +1,1 @@
+The function filters out all the birthdays in `possible_birthdays` that occur in the specified `month` and stores them in a new tuple named `possible`.

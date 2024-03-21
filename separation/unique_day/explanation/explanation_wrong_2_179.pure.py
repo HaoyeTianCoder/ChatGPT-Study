@@ -1,0 +1,1 @@
+This function checks if a given date appears exactly once in a list of possible dates.

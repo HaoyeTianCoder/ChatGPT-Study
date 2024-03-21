@@ -1,0 +1,1 @@
+The function checks if any birthday in the list of possible_birthdays occurs on a unique day in the given month.

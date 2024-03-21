@@ -1,0 +1,1 @@
+This function returns True if there is exactly one birthday in the list `possible_birthdays` that occurs in the month given by the argument `month`, and False otherwise.

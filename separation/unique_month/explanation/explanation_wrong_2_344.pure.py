@@ -1,0 +1,1 @@
+The `unique_month` function takes in a month and a list of possible birthdays, and returns a value or performs an action that is not specified in the code.

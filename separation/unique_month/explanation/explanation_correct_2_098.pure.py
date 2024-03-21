@@ -1,0 +1,1 @@
+This function checks if the given month appears in only one tuple of the list of tuples 'possible_birthdays'.

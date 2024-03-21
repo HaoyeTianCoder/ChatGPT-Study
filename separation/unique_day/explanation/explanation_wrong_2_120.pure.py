@@ -1,0 +1,1 @@
+This function checks if a specific date is unique within a list of possible birthdays by calling another function 'count_dates', and returns True if the date occurs only once in the list.

@@ -1,0 +1,1 @@
+This function checks if the input month appears only once in a list of possible birthdays, and returns True if it does, False otherwise. The count_months helper function is used to count how many times the input month appears in the list.

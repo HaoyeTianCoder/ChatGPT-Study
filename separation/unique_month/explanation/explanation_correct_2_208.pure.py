@@ -1,0 +1,1 @@
+The function takes in a month and a list of tuples representing possible birthdays, and checks if there is exactly one tuple with that month. If there is, the function returns True, otherwise it returns False.

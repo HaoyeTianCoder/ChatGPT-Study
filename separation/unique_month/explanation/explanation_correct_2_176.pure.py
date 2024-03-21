@@ -1,0 +1,1 @@
+The function checks if there is only one instance of the given `month` in the list `possible_birthdays` and returns `True` if it exists only once, otherwise, it returns `False`.

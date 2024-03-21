@@ -1,0 +1,1 @@
+The function `unique_month` takes a month and a list of dates and checks if there is only one date that belongs to that month in the list, returning `True` if so, and `False` otherwise.

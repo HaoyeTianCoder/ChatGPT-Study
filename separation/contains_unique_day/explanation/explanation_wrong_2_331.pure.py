@@ -1,0 +1,1 @@
+The function checks if there is exactly one birthday in a given month that falls on a unique day. If such a birthday exists, the function returns `True`; otherwise, it returns `False`.

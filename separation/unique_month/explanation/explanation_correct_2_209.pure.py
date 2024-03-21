@@ -1,0 +1,1 @@
+This function takes a month and a list of possible birthdays and determines if the given month is unique in the list, meaning it only appears once as the first element of a tuple. The function returns True if the month is unique and False otherwise.

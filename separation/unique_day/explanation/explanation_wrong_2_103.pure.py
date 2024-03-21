@@ -1,0 +1,1 @@
+This function counts the number of birthdays that occur on a given day, and returns the count. It also checks if the count is exactly 1 and returns True if it is, False otherwise, but this check will never be reached since the function already returns `count` in the line before.

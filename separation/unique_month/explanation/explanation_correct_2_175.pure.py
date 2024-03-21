@@ -1,0 +1,1 @@
+The intention of the function is to determine whether there is exactly one occurrence of a given month in a list of possible birthdays.

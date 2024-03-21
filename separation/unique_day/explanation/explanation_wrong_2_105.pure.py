@@ -1,0 +1,1 @@
+The function `unique_day` counts the number of occurrences of a given date in a list of possible birthdays and returns the count. However, the `return` statements after the count do not work as intended since they will not be reached, therefore the function will always return the count.

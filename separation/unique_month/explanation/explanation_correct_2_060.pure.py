@@ -1,0 +1,1 @@
+This function checks whether the given month appears exactly once as the first element in any of the tuples in a list of tuples.

@@ -1,0 +1,1 @@
+The function `unique_month` takes a month and a list of possible birthdays as input and returns `True` if the given month appears only once in the list of possible birthdays' months. Otherwise, it returns `False`.

@@ -1,0 +1,1 @@
+This function returns a boolean indicating whether there is at least one person with a unique birth day (i.e., not shared with anyone else) in the given month among the list of possible birthdays.

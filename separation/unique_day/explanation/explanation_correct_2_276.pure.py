@@ -1,0 +1,1 @@
+This function takes a day and a list of possible birthdays, creates a new tuple of just the days from the list, filters the new tuple to only contain the given day, and returns True if there is only one occurrence of the given day in the list, and False otherwise.

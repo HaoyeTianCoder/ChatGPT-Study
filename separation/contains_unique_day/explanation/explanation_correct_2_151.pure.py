@@ -1,0 +1,1 @@
+The intention of the function is to determine if there exists a person with a unique birth day in the given month, using the given list of possible birthdays.

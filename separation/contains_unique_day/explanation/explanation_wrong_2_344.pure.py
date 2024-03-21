@@ -1,0 +1,1 @@
+It seems like the given function `contains_unique_day` has not been implemented yet, and it does not have any code in it. The function only contains the `return` statement which does not have any value or expression to return, so this function will always return `None`.

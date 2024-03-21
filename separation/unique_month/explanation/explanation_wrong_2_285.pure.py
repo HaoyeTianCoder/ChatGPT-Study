@@ -1,0 +1,1 @@
+It seems that there is an error in the function and the variable `day` is not defined.

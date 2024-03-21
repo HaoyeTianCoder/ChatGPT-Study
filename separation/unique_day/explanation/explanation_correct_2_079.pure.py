@@ -1,0 +1,1 @@
+This function is checking if a given day occurs exactly once within a list of dates.

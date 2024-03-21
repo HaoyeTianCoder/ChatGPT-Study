@@ -1,0 +1,1 @@
+The given function doesn't do anything and returns nothing. It seems incomplete or an erroneous copy-paste of the original code.

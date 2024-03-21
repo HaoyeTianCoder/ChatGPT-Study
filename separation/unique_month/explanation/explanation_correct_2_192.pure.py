@@ -1,0 +1,1 @@
+The function checks whether the input month occurs exactly once in the list of possible_birthdays.

@@ -1,0 +1,1 @@
+The function signature does not contain any logic, it only returns nothing.

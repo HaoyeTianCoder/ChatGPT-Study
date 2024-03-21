@@ -1,0 +1,1 @@
+The intention of the function `contains_unique_day` is to check if there is at least one person in the `possible_birthdays` list who was born on a unique day of the specified `month`.

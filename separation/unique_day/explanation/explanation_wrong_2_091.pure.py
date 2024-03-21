@@ -1,0 +1,1 @@
+The function checks whether the input `day` appears exactly once in the second element of each tuple in `possible_birthdays` and returns `True` or `False` accordingly.

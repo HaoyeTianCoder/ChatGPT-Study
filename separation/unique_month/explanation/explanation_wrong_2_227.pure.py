@@ -1,0 +1,1 @@
+The function does not contain any logic or implementation, it only returns nothing.

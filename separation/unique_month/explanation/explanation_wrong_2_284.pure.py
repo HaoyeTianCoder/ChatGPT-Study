@@ -1,0 +1,1 @@
+The function checks if a given month occurs exactly once in a list of possible birthdays represented by month-day pairs.

@@ -1,0 +1,1 @@
+It seems that there is a mistake in the function, the variable `i` is being incremented but then the condition checks for a variable called `counter` that is not defined. So the intention of the function is not clear.

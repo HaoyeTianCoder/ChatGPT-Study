@@ -1,0 +1,1 @@
+The function returns `True` if there exists a unique day within the month given as input, and `False` otherwise.

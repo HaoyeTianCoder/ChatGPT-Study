@@ -1,0 +1,1 @@
+The function intends to check if there is at least one unique day in the month given and if the month containing a unique day is equal to the given month.

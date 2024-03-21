@@ -1,0 +1,1 @@
+The function searches for a day in the given month where only one person has a birthday in that day, and returns True if it finds one, False otherwise.

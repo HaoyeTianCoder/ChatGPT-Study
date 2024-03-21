@@ -1,0 +1,1 @@
+This function checks whether there is only one occurrence of a specific month in a list of dates (month-day pairs). If there are multiple occurrences of the month, the function returns False, otherwise it returns True.

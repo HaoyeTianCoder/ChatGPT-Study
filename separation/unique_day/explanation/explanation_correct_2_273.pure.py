@@ -1,0 +1,1 @@
+The function `unique_day` takes a `day` (integer) and a list of tuples `possible_birthdays` where each tuple consists of two elements (name and date of birth) and returns True if the `day` occurs only once in the `possible_birthdays`, otherwise it returns False.

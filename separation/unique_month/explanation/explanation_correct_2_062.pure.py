@@ -1,0 +1,1 @@
+The function checks whether there is only one birthday in the given list that falls in the specified month, by creating a tuple of months and checking its length. If the length of the tuple is 1, the function returns `True`; otherwise, it returns `False`.

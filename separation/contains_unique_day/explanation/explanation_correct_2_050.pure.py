@@ -1,0 +1,1 @@
+This function searches for unique birthdays within a given month and returns True if there is at least one unique birthday, and False otherwise.

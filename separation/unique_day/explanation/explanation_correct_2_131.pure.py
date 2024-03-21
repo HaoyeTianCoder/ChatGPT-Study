@@ -1,0 +1,1 @@
+The intention of this function is to determine if a given day appears exactly once among the days of the possible birthdays.

@@ -1,0 +1,1 @@
+This function checks if the given `month` appears only once as the first element of any of the tuples in the `possible_birthdays` list. The `count_months` function is called to count the number of occurrences of `month` in the list.

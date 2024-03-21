@@ -1,0 +1,1 @@
+This function checks if there is only one occurrence of a specific month in a list of tuples and returns True if so, and False otherwise.

@@ -1,0 +1,1 @@
+The intention of the function is to determine if there is exactly one instance of a given month in a list of tuples representing possible birthdays, returning True if so and False otherwise.

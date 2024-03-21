@@ -1,0 +1,1 @@
+This function takes a day and a list of tuples representing people's birthdays, and returns True if there is exactly one person in the list whose birthday is on the specified day, otherwise it returns False.

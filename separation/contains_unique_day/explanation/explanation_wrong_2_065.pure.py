@@ -1,0 +1,1 @@
+The function checks if there is a unique day in the specified month in the possible birthdays list and returns True if the unique day is either the 18th or 19th of that month, otherwise False.

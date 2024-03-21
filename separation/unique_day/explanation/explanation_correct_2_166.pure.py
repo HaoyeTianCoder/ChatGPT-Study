@@ -1,0 +1,1 @@
+The function `unique_day` checks if a given date is unique in a list of tuples, each containing a name and a date of birth. The function returns `True` if the date is unique and `False` otherwise.

@@ -1,0 +1,1 @@
+The function checks whether a specific date is the unique birthday in a list of possible birthdays.

@@ -1,0 +1,1 @@
+The function `unique_day` takes a day and a list of possible birthdays and checks if the given day is a unique day of the month for all possible birthdays in the list. It returns `True` if the day is unique, otherwise `False`.

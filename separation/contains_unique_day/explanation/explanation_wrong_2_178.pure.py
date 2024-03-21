@@ -1,0 +1,1 @@
+The function creates two tuples: one with birthdays in the specified month and one with the remaining birthdays, and then returns a tuple containing only the day values of the remaining birthdays.

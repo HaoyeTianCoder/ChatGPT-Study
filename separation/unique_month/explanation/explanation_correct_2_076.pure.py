@@ -1,0 +1,1 @@
+This function takes a month and a list of possible birthdays as input, and checks if there is exactly one birthday in the list that corresponds to the input month. The function returns True if there is exactly one such birthday, and False otherwise.

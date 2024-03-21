@@ -1,0 +1,1 @@
+The function checks whether there exists a unique birthdate in the given month from a list of possible birthdates.

@@ -1,0 +1,1 @@
+This function checks if a specific day is present in any of the possible birthdays by iterating through the list, and returns True if the day is found in any of the possible birthdays. Note that the 'day' argument is expected to be a string.

@@ -1,0 +1,1 @@
+It seems that the function `contains_unique_day` has no implementation and is just returning without any value.

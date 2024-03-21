@@ -1,0 +1,1 @@
+The intention of the `contains_unique_day` function is to determine whether there is only one unique day in a given month among a list of possible birthdays.

@@ -1,0 +1,1 @@
+The function `contains_unique_day` takes a `month` and a list of `possible_birthdays` and checks if there is a unique day in the given month that has a birthday. The function returns `True` if there is at least one unique birthday in the given month, otherwise it returns `False`.

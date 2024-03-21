@@ -1,0 +1,1 @@
+The intention of the function `unique_day` is to check if the input day occurs only once in the list of possible birthdays.

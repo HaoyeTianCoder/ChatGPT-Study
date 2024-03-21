@@ -1,0 +1,1 @@
+The function checks if a given `day` appears exactly once in a list of `possible_birthdays` and returns `True` if it does, and `False` otherwise.

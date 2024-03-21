@@ -1,0 +1,1 @@
+The function determines whether a given date is the birthday of exactly one person in a list of possible birthdays.

@@ -1,0 +1,1 @@
+The function checks if a given day (represented as the first element in a list of tuples) occurs only once in the list of tuples. If it does, the function returns True, otherwise False.

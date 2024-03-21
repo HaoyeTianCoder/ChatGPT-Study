@@ -1,0 +1,1 @@
+The function `contains_unique_day` aims to determine whether there is only one person with a birthday in a specific day and month provided as input. It does so by counting the number of occurrences of the month in the list of possible birthdays, and returning `True` if the count is exactly 1, and `False` otherwise.

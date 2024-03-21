@@ -1,0 +1,1 @@
+The intention of this function is to create a list of the months in the possible birthdays.

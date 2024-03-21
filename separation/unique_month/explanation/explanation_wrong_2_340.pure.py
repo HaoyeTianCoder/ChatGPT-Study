@@ -1,0 +1,1 @@
+The intention of this function is to check if a given month is unique in a list of tuples representing birthdays, and return True if it appears only once, otherwise False.

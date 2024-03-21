@@ -1,0 +1,1 @@
+The function checks if there is exactly one birthday that falls in the specified month in the list of possible birthdays, returning True if there is and False otherwise, using a lambda function and the filter method.

@@ -1,0 +1,1 @@
+The function `unique_month` is intended to check if there is exactly one birthday in a list of possible birthdays that occurred in a given month.

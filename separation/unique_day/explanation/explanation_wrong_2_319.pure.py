@@ -1,0 +1,1 @@
+The function `unique_day` takes in a `day` and a list of `possible_birthdays` and checks whether the `day` occurs only once in the list of `possible_birthdays`. If the `day` occurs more than once, the function returns `False`. If it occurs only once, the function returns `True`.

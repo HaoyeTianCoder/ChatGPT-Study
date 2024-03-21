@@ -1,0 +1,1 @@
+This function checks if a given day appears exactly once as the second element in a list of tuples, where each tuple contains a name and a date. If the day appears once, it returns True, otherwise it returns False.

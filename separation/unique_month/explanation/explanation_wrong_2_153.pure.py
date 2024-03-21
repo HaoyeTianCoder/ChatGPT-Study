@@ -1,0 +1,1 @@
+The intention of the function is to determine if there is only one unique occurrence of a given month in a list of birthdays, and return True if so, and False otherwise.

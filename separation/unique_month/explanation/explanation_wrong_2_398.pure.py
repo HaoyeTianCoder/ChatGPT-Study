@@ -1,0 +1,1 @@
+This function checks if there is only one instance of a given month in a list of birthdates. If there is exactly one instance of the month, it returns True, otherwise it returns False.

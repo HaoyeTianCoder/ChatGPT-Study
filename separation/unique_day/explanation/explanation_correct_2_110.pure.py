@@ -1,0 +1,1 @@
+This function takes in a day and a list of possible birthdays and returns True if the day appears only once in the list of possible birthdays, otherwise it returns False.

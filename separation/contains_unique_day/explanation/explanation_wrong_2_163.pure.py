@@ -1,0 +1,1 @@
+The function `contains_unique_day` checks if there is at least one person with a unique birth day in the given month in the list of possible birthdays.

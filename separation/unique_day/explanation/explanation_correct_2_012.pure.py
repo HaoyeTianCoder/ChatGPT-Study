@@ -1,0 +1,1 @@
+This function checks if there is exactly one person who has a birthday on a particular day within a list of possible birthdays.

@@ -1,0 +1,1 @@
+The function checks whether a given month appears as the first element of any tuple within a list of possible birthdays, and returns True if it does not, False otherwise.

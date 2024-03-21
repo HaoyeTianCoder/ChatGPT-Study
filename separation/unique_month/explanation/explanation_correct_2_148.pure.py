@@ -1,0 +1,1 @@
+The intention of the function is to check whether the input month has exactly one instance in the list of possible birthdays, and return True if it is the case, otherwise False.

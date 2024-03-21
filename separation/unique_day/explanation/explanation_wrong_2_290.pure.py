@@ -1,0 +1,1 @@
+The function returns True if the given date occurs exactly once among all possible birthdates, otherwise it returns False.

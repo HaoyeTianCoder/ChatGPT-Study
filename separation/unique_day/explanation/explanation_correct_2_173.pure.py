@@ -1,0 +1,1 @@
+The function `unique_day` intends to check if a given day appears exactly once among a list of possible dates.

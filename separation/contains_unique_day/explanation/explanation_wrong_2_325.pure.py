@@ -1,0 +1,1 @@
+It seems that this function doesn't have any implementation and always returns None.

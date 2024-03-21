@@ -1,0 +1,1 @@
+The function searches for birthdays that occur in a specific month and checks whether any of those birthdays have a unique day among all the birthdays in the list. It returns `True` if such a birthday is found, and `False` otherwise.

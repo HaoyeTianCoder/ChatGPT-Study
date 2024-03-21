@@ -1,0 +1,1 @@
+The function checks if a given day (in the format of a string) is unique within a list of tuples representing birthdays, and returns `True` if it is unique, and `False` otherwise.

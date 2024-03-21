@@ -1,0 +1,1 @@
+The function `unique_day` takes a date and a list of possible birthdays as inputs, and checks if the date appears exactly once in the list of possible birthdays. The function returns `True` if the date is unique, and `False` otherwise.

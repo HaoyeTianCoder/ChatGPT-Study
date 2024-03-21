@@ -1,0 +1,1 @@
+The function `unique_day` checks if the given day is unique in a list of possible birthdays.

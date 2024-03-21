@@ -1,0 +1,1 @@
+The function `unique_month` counts how many times a given month appears in a list of dates and returns `True` if it appears exactly once, `False` otherwise.

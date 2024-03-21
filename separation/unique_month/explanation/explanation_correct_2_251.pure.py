@@ -1,0 +1,1 @@
+The function `unique_month()` determines if a specific month appears exactly once in a list of tuples that represent possible birthdays.

@@ -1,0 +1,1 @@
+The function creates a new list `possible_days` by extracting the second element of each tuple in `possible_birthdays`.

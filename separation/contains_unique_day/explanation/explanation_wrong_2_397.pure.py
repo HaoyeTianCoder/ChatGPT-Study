@@ -1,0 +1,1 @@
+This function checks if there are any unique days in a given month, and returns `True` if the month is either June or May, and returns `False` otherwise.

@@ -1,0 +1,1 @@
+The function returns the count of occurrences of a given date within a list of possible birthdays.

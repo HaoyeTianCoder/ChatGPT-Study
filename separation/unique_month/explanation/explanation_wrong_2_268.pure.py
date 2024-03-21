@@ -1,0 +1,1 @@
+The function `unique_month` checks if there is only one birthday in the given `month` in the list of `possible_birthdays`.

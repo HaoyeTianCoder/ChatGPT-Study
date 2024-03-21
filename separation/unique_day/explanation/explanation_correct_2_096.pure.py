@@ -1,0 +1,1 @@
+The function checks whether the input date appears only once in the second element of each tuple in the input list.

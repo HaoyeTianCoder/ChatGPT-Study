@@ -1,0 +1,1 @@
+The function counts the number of occurrences of a given month in a list of birthdays and returns `True` if there is only one occurrence, and `False` otherwise.

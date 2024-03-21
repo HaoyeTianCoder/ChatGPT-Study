@@ -1,0 +1,1 @@
+The intention of the function is to check if there is only one birthday in a given list of birthdays that falls on the given month.

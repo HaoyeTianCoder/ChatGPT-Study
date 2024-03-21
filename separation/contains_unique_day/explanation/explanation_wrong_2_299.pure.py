@@ -1,0 +1,1 @@
+The function takes in a month and a list of possible birthdays, and it is intended to determine if there is a unique day of the month in which a person has a birthday.

@@ -1,0 +1,1 @@
+This function checks whether the day input has exactly one match in a list of possible birthdays.

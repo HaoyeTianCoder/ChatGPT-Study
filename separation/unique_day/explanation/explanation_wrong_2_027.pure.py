@@ -1,0 +1,1 @@
+The function checks if there is exactly one birthday in the list of possible birthdays that falls on the given day. If there is more than one or none, it returns False, otherwise, it returns True.

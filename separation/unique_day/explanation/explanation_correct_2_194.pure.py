@@ -1,0 +1,1 @@
+The intention of the `unique_day()` function is to determine if a specific date appears only once in a list of tuples and return `True` if it does, `False` otherwise.

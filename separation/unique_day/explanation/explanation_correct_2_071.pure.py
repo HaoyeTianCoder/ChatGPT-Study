@@ -1,0 +1,1 @@
+The intention of this code is to determine if a given date occurs exactly once in a list of possible birthdays.

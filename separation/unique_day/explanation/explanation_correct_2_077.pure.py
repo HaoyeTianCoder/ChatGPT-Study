@@ -1,0 +1,1 @@
+The function returns True if there is only one matching date in the possible birthdays list, and False otherwise.

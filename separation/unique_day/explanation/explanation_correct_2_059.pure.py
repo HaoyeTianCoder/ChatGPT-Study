@@ -1,0 +1,1 @@
+The function returns True if there is exactly one tuple in the list `possible_birthdays` whose second element is equal to `day`, and False otherwise.

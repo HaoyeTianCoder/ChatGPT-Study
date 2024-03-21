@@ -1,0 +1,1 @@
+The function returns True if the provided date is present only once in the possible_birthdays list and False otherwise.

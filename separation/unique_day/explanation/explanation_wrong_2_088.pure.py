@@ -1,0 +1,1 @@
+The function checks if a given day occurs only once in a list of tuples representing birthdays, and returns True if it occurs once and False otherwise.

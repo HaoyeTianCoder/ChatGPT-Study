@@ -1,0 +1,1 @@
+The function tries to determine if the input `date` occurs only once in any of the possible birthdays passed to the function by checking if it exists in only one of the lists and not in any adjacent lists. However, the code has a few errors that prevent it from working as intended.

@@ -1,0 +1,1 @@
+This function checks if the month argument is not found in the first item of the possible_birthdays list and returns True, otherwise it returns False.

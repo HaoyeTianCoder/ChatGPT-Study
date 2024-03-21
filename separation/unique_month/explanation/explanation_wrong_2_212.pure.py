@@ -1,0 +1,1 @@
+This function checks if there is at most one birthday in the input list `possible_birthdays` that occurs in a given month `month`. If there are more than one birthday in that month, the function returns `False`, otherwise it returns `True`.

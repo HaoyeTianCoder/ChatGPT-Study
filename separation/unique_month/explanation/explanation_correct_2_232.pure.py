@@ -1,0 +1,1 @@
+The intention of the function `unique_month` is to check if the given `month` occurs only once among the first elements of the tuples in `possible_birthdays`.

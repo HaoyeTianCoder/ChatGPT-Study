@@ -1,0 +1,1 @@
+This function takes a month and a list of tuples representing possible birthdays, and returns True if there is only one tuple with the given month in it, and False otherwise. The `count_months` function is used to count the number of tuples with the given month.

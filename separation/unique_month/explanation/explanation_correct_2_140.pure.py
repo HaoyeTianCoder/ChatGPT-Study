@@ -1,0 +1,1 @@
+This function checks whether a given month appears exactly once in a list of possible birthdays, where each birthday is represented as a tuple containing the month and the day.

@@ -1,0 +1,1 @@
+The function `unique_month` is designed to determine if there is exactly one instance of a given month in a list of possible birthdays, by checking the first element of each tuple in the list against the input month. The function returns `True` if there is exactly one instance of the month in the list and `False` otherwise.

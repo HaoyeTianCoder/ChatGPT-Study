@@ -1,0 +1,1 @@
+This function checks if there is at least one unique day in the month given as input. If there is at least one unique day, the function returns True, otherwise, it returns False.

@@ -1,0 +1,1 @@
+The function counts the number of times a given day appears in a list of dates, and returns True if it appears only once, and False otherwise.

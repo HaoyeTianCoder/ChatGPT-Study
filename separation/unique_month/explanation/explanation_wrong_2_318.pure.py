@@ -1,0 +1,1 @@
+This function checks if the given `month` appears exactly once in the first element of each tuple in the `possible_birthdays` list. If yes, it returns `True`; otherwise, it returns `False`.

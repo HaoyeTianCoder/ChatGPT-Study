@@ -1,0 +1,1 @@
+The function checks if the given day (month) does not appear in the first element of any of the tuples in the list `possible_birthdays` and returns `True` if the day is unique or `False` otherwise.

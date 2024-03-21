@@ -1,0 +1,1 @@
+It seems like the given function 'unique_month' is empty, i.e., it doesn't contain any code within the function body, so it doesn't have any specific intention.

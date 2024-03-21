@@ -1,0 +1,1 @@
+The function `unique_day` checks if the given date appears exactly once in the list of possible birthdays. It calls a helper function `count_dates` to count the number of occurrences of the given date in the list.

@@ -1,0 +1,1 @@
+The function checks if the given month appears exactly once as the first element in any of the tuples in the input list of possible birthdays.

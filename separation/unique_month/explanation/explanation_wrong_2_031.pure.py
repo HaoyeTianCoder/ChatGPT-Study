@@ -1,0 +1,1 @@
+This function takes a `month` and a list of `possible_birthdays` as inputs and checks if there is only one instance of the input `month` in the list of `possible_birthdays`. If there is, it returns True, otherwise, it returns False.

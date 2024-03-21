@@ -1,0 +1,1 @@
+The function takes a list of possible birthdays and a month and returns True if there is only one person in the list whose birthday month is the given month, and False otherwise.

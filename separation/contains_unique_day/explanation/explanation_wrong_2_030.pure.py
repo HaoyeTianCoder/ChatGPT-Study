@@ -1,0 +1,1 @@
+It's not possible to determine the intention of the function without seeing its code. The function definition provided has no body, so it does not perform any operation and will always return `None`.

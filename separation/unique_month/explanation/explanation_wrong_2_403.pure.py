@@ -1,0 +1,1 @@
+The function definition is incomplete and does not have any code logic to explain the intention.

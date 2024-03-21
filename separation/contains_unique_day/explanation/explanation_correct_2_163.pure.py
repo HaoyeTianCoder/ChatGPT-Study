@@ -1,0 +1,1 @@
+The function filters the birthdays that fall in the given month, extracts the day of each of these birthdays, and checks if any of these days are unique in the overall list of possible birthdays.

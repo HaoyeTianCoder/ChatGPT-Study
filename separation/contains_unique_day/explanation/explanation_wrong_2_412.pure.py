@@ -1,0 +1,1 @@
+This function checks if the input month is 'May' or 'June' and returns True, otherwise returns False.

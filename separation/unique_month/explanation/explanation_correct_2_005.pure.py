@@ -1,0 +1,1 @@
+This function filters out all birthdays that don't occur in the specified month, then returns True if there is only one birthday remaining and False otherwise.

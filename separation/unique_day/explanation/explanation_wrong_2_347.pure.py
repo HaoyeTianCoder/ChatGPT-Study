@@ -1,0 +1,1 @@
+The function checks if a given date is present in a list of possible birthdays and returns a boolean value.

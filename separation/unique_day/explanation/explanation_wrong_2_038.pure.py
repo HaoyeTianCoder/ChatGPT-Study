@@ -1,0 +1,1 @@
+This function takes a `date` and a list of `possible_birthdays`, and checks if the `date` appears in the second element of any of the tuples in the list. If the `date` appears once, it returns `True`. If it appears more than once, it returns `False`. If it does not appear at all, it returns `None`.

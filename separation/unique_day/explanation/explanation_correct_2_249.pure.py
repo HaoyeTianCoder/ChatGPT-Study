@@ -1,0 +1,1 @@
+This function takes a day and a list of possible birthdays, and checks if the day appears exactly once as the second element of any of the tuples in the list. If it does, the function returns True; otherwise, it returns False.

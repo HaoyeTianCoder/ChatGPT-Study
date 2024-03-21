@@ -1,0 +1,1 @@
+The function checks whether there is a unique day in the given `month` of `possible_birthdays` and returns `True` if there is at least one unique day, and `False` otherwise.

@@ -1,0 +1,1 @@
+The function aims to determine whether a particular month occurs exactly once in a list of dates.

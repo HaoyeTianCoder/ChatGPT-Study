@@ -1,0 +1,1 @@
+I'm sorry, it's difficult to explain the intention of the function without any code details. Can you please provide the code for the function?

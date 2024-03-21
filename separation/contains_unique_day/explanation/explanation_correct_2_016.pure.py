@@ -1,0 +1,1 @@
+The function checks if there is at least one person among the `possible_birthdays` whose birthday is on a unique day in the given `month`. If so, it returns True, otherwise it returns False.

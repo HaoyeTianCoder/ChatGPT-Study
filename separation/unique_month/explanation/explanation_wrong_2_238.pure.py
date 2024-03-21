@@ -1,0 +1,1 @@
+This function is incomplete and doesn't contain any code to execute. It doesn't have any clear intention without further development.

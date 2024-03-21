@@ -1,0 +1,1 @@
+This function checks whether there is exactly one occurrence of a given month in a list of birthdays, where each birthday is represented as a tuple with the format `(month, day)`. If there is only one occurrence, the function returns `True`, otherwise it returns `False`.

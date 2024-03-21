@@ -1,0 +1,1 @@
+The function counts how many birthdays occur in a given month and returns True if there is only one birthday, otherwise returns False.

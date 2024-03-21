@@ -1,0 +1,1 @@
+This function checks if there are two or more birthdays in the given list that match the given date.

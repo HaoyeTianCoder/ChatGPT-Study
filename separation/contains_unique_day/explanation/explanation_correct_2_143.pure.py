@@ -1,0 +1,1 @@
+The function takes a month and a list of tuples as input, and returns `True` if there is at least one tuple with the input month and a unique day, and `False` otherwise.

@@ -1,0 +1,1 @@
+This function does not have any code that performs a task or returns a value, so it has no intention.

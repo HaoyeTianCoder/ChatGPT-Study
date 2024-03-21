@@ -1,0 +1,1 @@
+The function takes in a month and a list of birthdays and returns True if the month appears only once in the list of birthdays, False otherwise.

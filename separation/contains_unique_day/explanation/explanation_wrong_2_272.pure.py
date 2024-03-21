@@ -1,0 +1,1 @@
+The function `contains_unique_day` is intended to check if there is at least one unique day in a given month among the possible birthdays, where each birthday is represented as a tuple of month and day.

@@ -1,0 +1,1 @@
+The intention of the function is to check if a given date occurs exactly once in a list of possible birthdates, returning True if so, and False otherwise.

@@ -1,0 +1,1 @@
+The function `unique_day` aims to check if a given day appears exactly once among a list of possible birthdays, by comparing the day with the second element of each tuple in the list.

@@ -1,0 +1,1 @@
+The function aims to check whether a given day appears only once in a list of possible birthdays.

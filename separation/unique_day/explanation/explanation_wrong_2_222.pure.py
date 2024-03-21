@@ -1,0 +1,1 @@
+The function `unique_day` takes a day and a list of dates, and checks if there is exactly one occurrence of the day in the list of dates, returning True if there is only one occurrence and False otherwise.

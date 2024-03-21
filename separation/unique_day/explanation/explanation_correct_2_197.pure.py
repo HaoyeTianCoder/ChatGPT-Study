@@ -1,0 +1,1 @@
+The function `unique_day` is designed to check if a given day (in the form of an integer) appears exactly once as the second element of any tuple in a list of tuples.

@@ -1,0 +1,1 @@
+The function checks whether a given month appears only once as the first element of a tuple in a list of possible birthdays, and returns True if it does, False otherwise. This implementation uses a tuple to collect all tuples whose first element is the given month, and returns True if the length of the tuple is exactly one.

@@ -1,0 +1,1 @@
+The function checks if a given day appears exactly once in a list of dates. If the day appears more than once, it returns False. If the day does not appear in the list at all, it also returns False. Otherwise, it returns True.

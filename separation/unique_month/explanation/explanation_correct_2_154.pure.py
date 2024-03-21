@@ -1,0 +1,1 @@
+The function checks whether there is exactly one instance of a given month in a list of tuples, where each tuple contains a month and a day.

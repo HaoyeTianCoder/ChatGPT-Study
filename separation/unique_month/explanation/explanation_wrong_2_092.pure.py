@@ -1,0 +1,1 @@
+The function `unique_month` aims to determine if a given month has a unique occurrence in a list of possible birthdays, where each element of the list is a tuple containing a month and a day.

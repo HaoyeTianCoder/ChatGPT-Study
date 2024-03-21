@@ -1,0 +1,1 @@
+This function takes a date and a list of tuples representing birthdays and checks if the given date appears in exactly one tuple's second element. It returns True if the given date appears exactly once, and False otherwise.

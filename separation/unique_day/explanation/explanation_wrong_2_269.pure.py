@@ -1,0 +1,1 @@
+This function checks if a specific day is unique within a list of possible birthdays by counting the number of occurrences of the day in the list.

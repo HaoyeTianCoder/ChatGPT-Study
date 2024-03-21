@@ -1,0 +1,1 @@
+The function checks if there is exactly one occurrence of a particular date in a list of possible dates, and returns True if so, False otherwise.

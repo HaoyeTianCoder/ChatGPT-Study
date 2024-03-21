@@ -1,0 +1,1 @@
+The function filters a list of possible birthdays by a specific day and returns True if there is only one birthday on that day, and False otherwise.

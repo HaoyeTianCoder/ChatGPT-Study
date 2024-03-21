@@ -1,0 +1,1 @@
+This function checks if there is exactly one person in the given `possible_birthdays` list whose birthday is in the given `month`.

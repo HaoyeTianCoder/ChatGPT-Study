@@ -1,0 +1,1 @@
+This function checks whether a given day appears only once among the second elements of the tuples in a given list of tuples.

@@ -1,0 +1,1 @@
+This function returns a boolean indicating whether the specified `month` appears in any of the tuples in the `possible_birthdays` list.

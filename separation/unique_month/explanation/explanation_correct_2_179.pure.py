@@ -1,0 +1,1 @@
+The function checks whether there is only one birthday in the provided list of possible birthdays that falls in the specified month, using a lambda function and a filter to create a tuple with all of the birthdays that fall within the specified month and checking whether the length of that tuple is equal to 1.

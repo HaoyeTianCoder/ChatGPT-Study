@@ -1,0 +1,1 @@
+The function checks if a specific month appears exactly once in a list of birthdays, and returns True if so, False otherwise. The `count_months` function is not shown here, but it likely counts the number of occurrences of a given month in the list.

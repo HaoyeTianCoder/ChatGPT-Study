@@ -1,0 +1,1 @@
+It is not possible to determine the intention of the function as it is empty and does not contain any code.

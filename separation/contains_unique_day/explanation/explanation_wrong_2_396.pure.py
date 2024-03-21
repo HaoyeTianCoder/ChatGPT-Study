@@ -1,0 +1,1 @@
+The intention of this function is to check if there is a unique day in the specified month among the possible birthdays provided, and return a boolean value accordingly.
